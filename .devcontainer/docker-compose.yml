@@ -1,0 +1,57 @@
+services:
+  main:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    platform: linux/amd64
+    volumes:
+    - ..:/workspace/substreams-starter:cached
+    entrypoint: '/bin/sh -c "while sleep 1000; do :; done"'
+    depends_on:
+    - postgres
+    network_mode: service:postgres
+
+  ipfs:
+    container_name: ipfs-gn
+    image: ipfs/kubo:v0.14.0
+    volumes:
+      -  ../devdata/ipfs:/data/ipfs
+      - ../devdata/ipfs-export:/export
+    depends_on:
+    - postgres
+    network_mode: service:postgres
+
+  postgres:
+    image: postgres:15
+    ports:
+      - "5432:5432" # postgres
+      - "8081:8081" # pgweb
+      - "9000:9000" # main
+      - "5001:5001" # ipfs
+      - "8080:8080" # ipfs
+
+    command: ["postgres", "-cshared_preload_libraries=pg_stat_statements"]
+    #command: ["postgres", "-cshared_preload_libraries=pg_stat_statements", "-clog_statement=all"]
+    environment:
+      POSTGRES_USER: dev-node
+      POSTGRES_PASSWORD: insecure-change-me-in-prod
+      POSTGRES_DB: dev-node
+      POSTGRES_INITDB_ARGS: "-E UTF8 --locale=C"
+      POSTGRES_HOST_AUTH_METHOD: md5
+    volumes:
+      - ../devdata/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "5432"]
+      interval: 30s
+      timeout: 10s
+      retries: 15
+
+  pgweb:
+    image: sosedoff/pgweb:0.11.12
+    restart: on-failure
+    command: ["pgweb", "--bind=0.0.0.0", "--listen=8081", "--binary-codec=hex"]
+    environment:
+      - DATABASE_URL=postgres://user:password@postgres:5432/db?sslmode=disable
+    depends_on:
+    - postgres
+    network_mode: service:postgres

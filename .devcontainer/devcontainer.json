@@ -1,14 +1,14 @@
 {
-    "build": {
-        "dockerfile": "Dockerfile"
-    },
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "main",
     "secrets": {
         "SUBSTREAMS_API_TOKEN": {
             "description": "The API token to access the Substreams endpoint.",
             "documentationUrl": "https://substreams.streamingfast.io/documentation/consume/authentication"
         }
     },
-    "customizations": {
+    "workspaceFolder": "/workspace/substreams-starter",
+        "customizations": {
         "vscode": {
             "extensions": [
                 "1yib.rust-bundle",
