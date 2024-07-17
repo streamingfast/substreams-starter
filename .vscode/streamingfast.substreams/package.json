@@ -1,5 +1,7 @@
 {
   "name": "substreams",
+  "publisher": "streamingfast",
+  "repository": "https://github.com/streamingfast/substreams-starter",
   "displayName": "Substreams",
   "description": "Substreams Developer Environment Extension",
   "version": "0.0.1",
@@ -17,45 +19,54 @@
 
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "substreams-sf.helloWorld",
-      "title": "Hello World"
-    }],
+    "commands": [
+      {
+        "category": "Substreams",
+        "command": "substreams.runInit",
+        "title": "Initialize a new project"
+      },
+      {
+        "category": "Substreams",
+        "command": "substreams.build",
+        "title": "Build Package"
+      }
+    ],
 
     "walkthroughs": [
       {
-        "id": "sampleWalkthrough",
+        "id": "starter",
         "title": "Get Started with Substreams",
         "description": "Build, stream and publish your first Substreams",
         "steps": [
           {
-            "id": "introduction",
-            "title": "Introduction",
-            "description": "Welcome to My Extension! This walkthrough will guide you through its main features.",
-            "media": {
-              "image": "media/welcome.png",
-              "altText": "Welcome image"
-            }
-          },
-          {
-            "id": "feature1",
-            "title": "Feature 1: Do Something Amazing",
-            "description": "Learn how to use the amazing Feature 1 of this extension.",
+            "id": "build",
+            "title": "Start building",
+            "description": "Becoming an expert starts here\n\n[Create a blank new module](command:substreams.newBlankModule)\n[Open public repo](command:substreams.openRepository)\n[Generate initial project](command:substreams.runInit)\n[Build upon existing module](command:substreams.buildFromExistingPackage)\n",
             "media": {
               "image": "media/feature1.png",
-              "altText": "Feature 1 screenshot"
+              "altText": "Build your own"
             },
-            "completionEvents": ["onCommand:myExtension.feature1"]
+            "completionEvents": ["onCommand:substreams.walkthroughStartBuilding"]
           },
           {
-            "id": "feature2",
-            "title": "Feature 2: Another Cool Thing",
-            "description": "Discover the power of Feature 2 and how it can improve your workflow.",
+            "id": "stream",
+            "title": "Start streaming",
+            "description": "See the data flowing\n\n[Run the GUI](command:substreams.runGui)\n[Run the CLI streamer](command:substreams.runRun)\n[Load data into Postgres](command:substreams.runPostgresSink)\n[Pipe Substreams into a subgraph](command:substreams.runSubgraph)",
             "media": {
               "image": "media/feature2.png",
-              "altText": "Feature 2 screenshot"
+              "altText": "Streaming"
             },
-            "completionEvents": ["onCommand:myExtension.feature2"]
+            "completionEvents": ["onCommand:substreams.walkthroughStartStreaming"]
+          },
+          {
+            "id": "explore",
+            "title": "Explore the data",
+            "description": "Query the data\n\n[Open web view to Postgres](command:substreams.openPgWeb)\n[Open GraphQL into a subgraph](command:substreams.openSubgraphQuery)\n",
+            "media": {
+              "image": "media/feature2.png",
+              "altText": "Explore"
+            },
+            "completionEvents": ["onCommand:substreams.walkthroughExplore"]
           }
         ]
       }
