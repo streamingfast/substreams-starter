@@ -20,8 +20,48 @@
     "commands": [{
       "command": "substreams-sf.helloWorld",
       "title": "Hello World"
-    }]
+    }],
+
+    "walkthroughs": [
+      {
+        "id": "sampleWalkthrough",
+        "title": "Get Started with Substreams",
+        "description": "Build, stream and publish your first Substreams",
+        "steps": [
+          {
+            "id": "introduction",
+            "title": "Introduction",
+            "description": "Welcome to My Extension! This walkthrough will guide you through its main features.",
+            "media": {
+              "image": "media/welcome.png",
+              "altText": "Welcome image"
+            }
+          },
+          {
+            "id": "feature1",
+            "title": "Feature 1: Do Something Amazing",
+            "description": "Learn how to use the amazing Feature 1 of this extension.",
+            "media": {
+              "image": "media/feature1.png",
+              "altText": "Feature 1 screenshot"
+            },
+            "completionEvents": ["onCommand:myExtension.feature1"]
+          },
+          {
+            "id": "feature2",
+            "title": "Feature 2: Another Cool Thing",
+            "description": "Discover the power of Feature 2 and how it can improve your workflow.",
+            "media": {
+              "image": "media/feature2.png",
+              "altText": "Feature 2 screenshot"
+            },
+            "completionEvents": ["onCommand:myExtension.feature2"]
+          }
+        ]
+      }
+    ]    
   },
+
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
