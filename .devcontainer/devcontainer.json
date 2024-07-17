@@ -60,6 +60,7 @@
         }
     },
     "features": {
-        "./substreams": {}
+        "./substreams": {},
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
     }
 }
