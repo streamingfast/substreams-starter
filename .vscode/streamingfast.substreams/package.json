@@ -14,7 +14,10 @@
   ],
   "activationEvents": [
     "workspaceContains:substreams.yaml",
-    "workspaceContains:substreams.yml"
+    "workspaceContains:**/substreams.yaml",
+    "workspaceContains:substreams.yml",
+    "workspaceContains:**/substreams.yml",
+    "workspaceContains:.devcontainer/enable-substreams-extension"
   ],
 
   "main": "./extension.js",
@@ -25,6 +28,21 @@
         "command": "substreams.runInit",
         "title": "Initialize a new project"
       },
+      {
+        "category": "Substreams",
+        "command": "substreams.newBlankModule",
+        "title": "Initialize a new blank module"
+      },      
+      {
+        "category": "Substreams",
+        "command": "substreams.getSimpleApiKey",
+        "title": "Obtain a lower-power, short-lived API token"
+      },      
+      {
+        "category": "Substreams",
+        "command": "substreams.marketAuth",
+        "title": "Authenticate on The Graph Market"
+      },      
       {
         "category": "Substreams",
         "command": "substreams.build",
@@ -46,7 +64,25 @@
               "image": "media/feature1.png",
               "altText": "Build your own"
             },
-            "completionEvents": ["onCommand:substreams.walkthroughStartBuilding"]
+            "completionEvents": [
+              "onCommand:substreams.newBlankModule",
+              "onCommand:substreams.openRepository",
+              "onCommand:substreams.buildFromExistingPackage",
+              "onCommand:substreams.runInit"
+            ]
+          },
+          {
+            "id": "auth",
+            "title": "Get an API token",
+            "description": "Get a token to start streaming:\n\n[Get a lower-powered API key](command:substreams.getSimpleApiKey)\n[Create account and get 1TB/free](command:substreams.marketAuth)\n\n<small>The lower-power key is short-lived and is mainly for quick exploration.</small>",
+            "media": {
+              "image": "media/feature2.png",
+              "altText": "Authenticate"
+            },
+            "completionEvents": [
+              "onCommand:substreams.getSimpleApiKey",
+              "onCommand:substreams.marketAuth"
+            ]
           },
           {
             "id": "stream",
@@ -56,7 +92,12 @@
               "image": "media/feature2.png",
               "altText": "Streaming"
             },
-            "completionEvents": ["onCommand:substreams.walkthroughStartStreaming"]
+            "completionEvents": [
+              "onCommand:substreams.runGui",
+              "onCommand:substreams.runPostgresSink",
+              "onCommand:substreams.runSubgraph",
+              "onCommand:substreams.runRun"
+            ]
           },
           {
             "id": "explore",
@@ -66,7 +107,11 @@
               "image": "media/feature2.png",
               "altText": "Explore"
             },
-            "completionEvents": ["onCommand:substreams.walkthroughExplore"]
+            "completionEvents": [
+              "onCommand:substreams.openPgWeb",
+              "onCommand:substreams.openSubgraphQuery",
+              "onCommand:substreams.runGui"
+            ]
           }
         ]
       }
