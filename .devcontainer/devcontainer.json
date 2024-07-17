@@ -5,7 +5,47 @@
         "SUBSTREAMS_API_TOKEN": {
             "description": "The API token to access the Substreams endpoint.",
             "documentationUrl": "https://substreams.streamingfast.io/documentation/consume/authentication"
+        },
+        "SUBSTREAMS_ENDPOINT": {
+            "description": "The Substreams endpoint to back the 'graph-node's Substreams-powered-subgraphs. Unsure? Use mainnet.eth.streamingfast.io:443",
         }
+    },
+    "forwardPorts": [5432, 8081, 5001, 8080, 8000, 8001, 8020, 8030, 8040],
+    "portsAttributes": {
+        "5432": {
+            "label": "postgres",
+        },
+        "8081": {
+            "label": "pgweb",
+        },
+        "5001": {
+            "label": "ipfs (/webui)",
+            "onAutoForward": "silent"
+        },
+        "8000": {
+            "label": "graph-node",
+            "onAutoForward": "silent"
+        },
+        "8001": {
+            "label": "graph-node",
+            "onAutoForward": "silent"
+        },
+        "8020": {
+            "label": "graph-node",
+            "onAutoForward": "silent"
+        },
+        "8030": {
+            "label": "graph-node",
+            "onAutoForward": "silent"
+        },
+        "8040": {
+            "label": "graph-node",
+            "onAutoForward": "silent"
+        },
+        "1065": {
+            "label": "pprof",
+            "onAutoForward": "silent"
+        },       
     },
     "workspaceFolder": "/workspace/substreams-starter",
         "customizations": {

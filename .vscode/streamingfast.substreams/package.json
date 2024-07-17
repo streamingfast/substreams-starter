@@ -1,15 +1,18 @@
 {
-  "name": "substreams-sf",
-  "displayName": "substreams-sf",
-  "description": "This extension give all keys to create and run a substreams",
+  "name": "substreams",
+  "displayName": "Substreams",
+  "description": "Substreams Developer Environment Extension",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.91.0"
   },
   "categories": [
-    "Other"
+    "Data Science",
+    "Programming Languages"
   ],
   "activationEvents": [
+    "workspaceContains:substreams.yaml",
+    "workspaceContains:substreams.yml"
   ],
 
   "main": "./extension.js",

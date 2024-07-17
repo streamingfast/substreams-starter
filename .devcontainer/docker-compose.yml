@@ -5,20 +5,38 @@ services:
       dockerfile: Dockerfile
     platform: linux/amd64
     volumes:
-    - ..:/workspace/substreams-starter:cached
+      - ..:/workspace/substreams-starter:cached
     entrypoint: '/bin/sh -c "while sleep 1000; do :; done"'
     depends_on:
-    - postgres
+      - postgres
     network_mode: service:postgres
 
   ipfs:
-    container_name: ipfs-gn
     image: ipfs/kubo:v0.14.0
     volumes:
       -  ../devdata/ipfs:/data/ipfs
       - ../devdata/ipfs-export:/export
     depends_on:
-    - postgres
+      - postgres
+    network_mode: service:postgres
+
+  graph-node:
+    image: graphprotocol/graph-node
+    volumes:
+      - ../.graph-node:/config/graph-node:cached
+    environment:
+      postgres_host: 127.0.0.1
+      postgres_user: graph-node
+      postgres_pass: let-me-in
+      postgres_db: graph-node
+      ipfs: '127.0.0.1:5001'
+      GRAPH_LOG: info
+      GRAPH_NODE_CONFIG: /config/graph-node/local-substreams.toml
+      SUBSTREAMS_ENDPOINT: mainnet.eth.streamingfast.io:443
+      SUBSTREAMS_API_TOKEN: non-nil-try-me  # Eventually, replace this by a command that is driven by the 'main' container, and can restart the pod at will, with changed configuration.
+    depends_on:
+      - ipfs
+      - postgres
     network_mode: service:postgres
 
   postgres:
@@ -29,13 +47,18 @@ services:
       - "9000:9000" # main
       - "5001:5001" # ipfs
       - "8080:8080" # ipfs
+      - '8000:8000' # graph-node
+      - '8001:8001' # graph-node
+      - '8020:8020' # graph-node
+      - '8030:8030' # graph-node
+      - '8040:8040' # graph-node
 
     command: ["postgres", "-cshared_preload_libraries=pg_stat_statements"]
     #command: ["postgres", "-cshared_preload_libraries=pg_stat_statements", "-clog_statement=all"]
     environment:
-      POSTGRES_USER: dev-node
-      POSTGRES_PASSWORD: insecure-change-me-in-prod
-      POSTGRES_DB: dev-node
+      POSTGRES_USER: graph-node
+      POSTGRES_PASSWORD: let-me-in
+      POSTGRES_DB: graph-node
       POSTGRES_INITDB_ARGS: "-E UTF8 --locale=C"
       POSTGRES_HOST_AUTH_METHOD: md5
     volumes:
@@ -51,7 +74,7 @@ services:
     restart: on-failure
     command: ["pgweb", "--bind=0.0.0.0", "--listen=8081", "--binary-codec=hex"]
     environment:
-      - DATABASE_URL=postgres://user:password@postgres:5432/db?sslmode=disable
+      - DATABASE_URL=postgres://graph-node:let-me-in@127.0.0.1:5432/graph-node?sslmode=disable
     depends_on:
-    - postgres
+      - postgres
     network_mode: service:postgres
