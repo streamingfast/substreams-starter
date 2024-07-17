@@ -30,7 +30,7 @@ function activate(context) {
 	context.subscriptions.push(vscode.commands.registerCommand('substreams.build', async function() {
         const activeEditor = vscode.window.activeTextEditor;
         if (!activeEditor) {
-            vscode.window.showInformationMessage('Build command available when editing a file below your `substreams.yaml` manifest');
+            vscode.window.showInformationMessage('`substreams.yaml` not found below currently opened file.');
             return
         }
         const fileExists = await vscode.workspace.fs.stat(activeEditor.document.uri);
@@ -62,7 +62,7 @@ function activate(context) {
 
         const parentFolder = await getParentFolderWithFile(activeEditor.document.uri.fsPath, "substreams.yaml")
         if (parentFolder === null) {
-            vscode.window.showInformationMessage('Build command available when editing a file below your `substreams.yaml` manifest');
+            vscode.window.showInformationMessage('`substreams.yaml` not found below currently opened file.');
             return        
         }
         vscode.tasks.executeTask(new vscode.Task(
