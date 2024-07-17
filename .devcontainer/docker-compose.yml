@@ -45,7 +45,7 @@ services:
       - "5432:5432" # postgres
       - "8081:8081" # pgweb
       - "9000:9000" # main
-      - "5001:5001" # ipfs
+      - "5001:5001" # ipfs`
       - "8080:8080" # ipfs
       - '8000:8000' # graph-node
       - '8001:8001' # graph-node
