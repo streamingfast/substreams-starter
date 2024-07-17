@@ -12,22 +12,26 @@ function activate(context) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "substreams-sf" is now active!');
+	console.log('Congratulations, Substreams extension active!');
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with  registerCommand
 	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('substreams-sf.helloWorld', function () {
+	const disposable = vscode.commands.registerCommand('substreams.helloWorld', function () {
 		// The code you place here will be executed every time your command is executed
 
 		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from substreams-sf!');
+		vscode.window.showInformationMessage('Hello World from Substreams!');
 		var panel = vscode.window.createWebviewPanel(
 			'toolbox',
 			'Substreams',
 			vscode.ViewColumn.One,
 			{enableScripts: true}	
 		);
+        panel.iconPath = {
+            light: vscode.Uri.file(context.asAbsolutePath('icons/light-icon.png')),
+            dark: vscode.Uri.file(context.asAbsolutePath('icons/dark-icon.png'))
+        };
 		panel.webview.html = getWebviewContent()
 
 		panel.webview.onDidReceiveMessage(
