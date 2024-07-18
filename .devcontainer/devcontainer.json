@@ -66,6 +66,6 @@
         "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
     },
 
-    "postCreateCommand": "export code=$(ls ~/.vscode-server*/bin/*/bin/code-server* | head -n 1) && $code --install-extension .vscode/streamingfast.substreams/substreams-0.0.1.vsix"
+    "postCreateCommand": "`which code` --install-extension .vscode/streamingfast.substreams/substreams-0.0.1.vsix"
 
 }
