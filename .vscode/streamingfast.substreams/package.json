@@ -74,7 +74,7 @@
           {
             "id": "auth",
             "title": "Get an API token",
-            "description": "Get a token to start streaming:\n\n[Get a lower-powered API key](command:substreams.getSimpleApiKey)\n[Create account and get 1TB/free](command:substreams.marketAuth)\n\n<small>The lower-power key is short-lived and is mainly for quick exploration.</small>",
+            "description": "Get a token to start streaming:\n\n[Get a lower-powered API key](command:substreams.getSimpleApiKey)\n[Create account and get 1TB free](command:substreams.marketAuth)\n\nTip: A lower-power key is short-lived and useful for initial exploration.\n",
             "media": {
               "image": "media/feature2.png",
               "altText": "Authenticate"
