@@ -1,6 +1,7 @@
 {
     "dockerComposeFile": "docker-compose.yml",
     "service": "main",
+    "containerEnv": {},
     "secrets": {
         "SUBSTREAMS_API_TOKEN": {
             "description": "The API token to access the Substreams endpoint.",
