@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     platform: linux/amd64
     volumes:
-      - ..:/workspace/substreams-starter:cached
+      - ..:/workspace:cached
     entrypoint: '/bin/sh -c "while sleep 1000; do :; done"'
     depends_on:
       - postgres

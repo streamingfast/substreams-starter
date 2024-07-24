@@ -1,15 +1,14 @@
 {
+    "name": "Substreams development",
     "dockerComposeFile": "docker-compose.yml",
     "service": "main",
+    "workspaceFolder": "/workspace",
     "containerEnv": {},
     "secrets": {
         "SUBSTREAMS_API_TOKEN": {
-            "description": "The API token to access the Substreams endpoint.",
+            "description": "The API token to access Substreams endpoints",
             "documentationUrl": "https://substreams.streamingfast.io/documentation/consume/authentication"
         },
-        "SUBSTREAMS_ENDPOINT": {
-            "description": "The Substreams endpoint to back the 'graph-node's Substreams-powered-subgraphs. Unsure? Use mainnet.eth.streamingfast.io:443",
-        }
     },
     "forwardPorts": [5432, 8081, 5001, 8080, 8000, 8001, 8020, 8030, 8040],
     "portsAttributes": {
@@ -48,13 +47,13 @@
             "onAutoForward": "silent"
         },       
     },
-    "workspaceFolder": "/workspace/substreams-starter",
         "customizations": {
         "vscode": {
             "extensions": [
                 "1yib.rust-bundle",
                 "rust-lang.rust-analyzer",
-                "vadimcn.vscode-lldb"
+                "vadimcn.vscode-lldb",
+                "/workspace/.vscode/streamingfast.substreams/substreams-0.0.1.vsix"
             ],
             "settings": {   
 
@@ -67,5 +66,5 @@
         "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
     },
 
-    "postCreateCommand": "$(ls  /vscode/bin/*/*/bin/code-server /home/vscode/.vscode-server/bin/*/bin/code-server | head -n1 ) --install-extension .vscode/streamingfast.substreams/substreams-0.0.1.vsix",
+    //"postCreateCommand": "$(ls  /vscode/bin/*/*/bin/code-server /home/vscode/.vscode-server/bin/*/bin/code-server | head -n1 ) --install-extension .vscode/streamingfast.substreams/substreams-0.0.1.vsix",
 }
