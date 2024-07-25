@@ -6,7 +6,7 @@
         {
             "label": "Substreams: build package",
             "type": "shell",
-            "command": "substreams pack",
+            "command": "substreams build",
             "problemMatcher": []
         }            
     ]

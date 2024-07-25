@@ -10,17 +10,18 @@
             "documentationUrl": "https://substreams.streamingfast.io/documentation/consume/authentication"
         },
     },
-    "forwardPorts": [5432, 8081, 5001, 8080, 8000, 8001, 8020, 8030, 8040],
+    "forwardPorts": ["postgres:5432", 8081, 5001, 8080, 8000, 8001, 8020, 8030, 8040],
     "portsAttributes": {
-        "5432": {
-            "label": "postgres",
-        },
-        "8081": {
-            "label": "pgweb",
+        "1065": {
+            "label": "pprof",
+            "onAutoForward": "silent"
         },
         "5001": {
             "label": "ipfs (/webui)",
             "onAutoForward": "silent"
+        },
+        "postgres:5432": {
+            "label": "postgres"
         },
         "8000": {
             "label": "graph-node",
@@ -42,10 +43,9 @@
             "label": "graph-node",
             "onAutoForward": "silent"
         },
-        "1065": {
-            "label": "pprof",
-            "onAutoForward": "silent"
-        },       
+        "8081": {
+            "label": "pgweb"
+        }
     },
         "customizations": {
         "vscode": {

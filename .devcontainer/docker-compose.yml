@@ -3,34 +3,45 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    ports:
+      - "9000:9000" # main
     platform: linux/amd64
     volumes:
       - ..:/workspace:cached
     entrypoint: '/bin/sh -c "while sleep 1000; do :; done"'
     depends_on:
       - postgres
-    network_mode: service:postgres
+    #network_mode: service:postgres
 
   ipfs:
     image: ipfs/kubo:v0.14.0
     volumes:
       -  ../devdata/ipfs:/data/ipfs
       - ../devdata/ipfs-export:/export
+    ports:
+      - "5001:5001" # ipfs
+      - "8080:8080" # ipfs
     depends_on:
       - postgres
-    network_mode: service:postgres
+    #network_mode: service:postgres
 
   graph-node:
     image: graphprotocol/graph-node
+    ports:
+      - '8000:8000' # graph-node
+      - '8001:8001' # graph-node
+      - '8020:8020' # graph-node
+      - '8030:8030' # graph-node
+      - '8040:8040' # graph-node
     volumes:
       - ../.graph-node:/config/graph-node:cached
       - ..:/workspace:cached  # .devcontainer, .env
     environment:
-      postgres_host: 127.0.0.1
+      postgres_host: postgres
       postgres_user: graph-node
       postgres_pass: let-me-in
       postgres_db: graph-node
-      ipfs: '127.0.0.1:5001'
+      ipfs: 'ipfs:5001'
       GRAPH_LOG: info
       GRAPH_NODE_CONFIG: /workspace/.graph-node/config.toml
       SUBSTREAMS_ENDPOINT: mainnet.eth.streamingfast.io:443
@@ -40,22 +51,12 @@ services:
     depends_on:
       - ipfs
       - postgres
-    network_mode: service:postgres
+    #network_mode: service:postgres
 
   postgres:
     image: postgres:15
     ports:
       - "5432:5432" # postgres
-      - "8081:8081" # pgweb
-      - "9000:9000" # main
-      - "5001:5001" # ipfs`
-      - "8080:8080" # ipfs
-      - '8000:8000' # graph-node
-      - '8001:8001' # graph-node
-      - '8020:8020' # graph-node
-      - '8030:8030' # graph-node
-      - '8040:8040' # graph-node
-
     command: ["postgres", "-cshared_preload_libraries=pg_stat_statements"]
     #command: ["postgres", "-cshared_preload_libraries=pg_stat_statements", "-clog_statement=all"]
     environment:
@@ -75,9 +76,15 @@ services:
   pgweb:
     image: sosedoff/pgweb:0.11.12
     restart: on-failure
+    ports:
+      - "8081:8081" # pgweb
     command: ["pgweb", "--bind=0.0.0.0", "--listen=8081", "--binary-codec=hex"]
     environment:
-      - DATABASE_URL=postgres://graph-node:let-me-in@127.0.0.1:5432/graph-node?sslmode=disable
+      - DATABASE_URL=postgres://graph-node:let-me-in@postgres:5432/graph-node?sslmode=disable
     depends_on:
       - postgres
-    network_mode: service:postgres
+    #network_mode: service:postgres
+
+networks:
+  default:
+    driver: default
