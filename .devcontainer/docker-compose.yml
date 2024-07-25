@@ -4,14 +4,13 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "9000:9000" # main
+      - "9000:9000"
     platform: linux/amd64
     volumes:
       - ..:/workspace:cached
     entrypoint: '/bin/sh -c "while sleep 1000; do :; done"'
     depends_on:
       - postgres
-    #network_mode: service:postgres
 
   ipfs:
     image: ipfs/kubo:v0.14.0
@@ -19,20 +18,19 @@ services:
       -  ../devdata/ipfs:/data/ipfs
       - ../devdata/ipfs-export:/export
     ports:
-      - "5001:5001" # ipfs
-      - "8080:8080" # ipfs
+      - "5001:5001"
+      - "8080:8080"
     depends_on:
       - postgres
-    #network_mode: service:postgres
 
   graph-node:
     image: graphprotocol/graph-node
     ports:
-      - '8000:8000' # graph-node
-      - '8001:8001' # graph-node
-      - '8020:8020' # graph-node
-      - '8030:8030' # graph-node
-      - '8040:8040' # graph-node
+      - '8000:8000'
+      - '8001:8001'
+      - '8020:8020'
+      - '8030:8030'
+      - '8040:8040'
     volumes:
       - ../.graph-node:/config/graph-node:cached
       - ..:/workspace:cached  # .devcontainer, .env
@@ -51,14 +49,16 @@ services:
     depends_on:
       - ipfs
       - postgres
-    #network_mode: service:postgres
 
   postgres:
     image: postgres:15
     ports:
-      - "5432:5432" # postgres
-    command: ["postgres", "-cshared_preload_libraries=pg_stat_statements"]
-    #command: ["postgres", "-cshared_preload_libraries=pg_stat_statements", "-clog_statement=all"]
+      - "5432:5432"
+    command: [
+      "postgres",
+      "-cshared_preload_libraries=pg_stat_statements",
+      #"-clog_statement=all",
+    ],
     environment:
       POSTGRES_USER: graph-node
       POSTGRES_PASSWORD: let-me-in
@@ -77,13 +77,12 @@ services:
     image: sosedoff/pgweb:0.11.12
     restart: on-failure
     ports:
-      - "8081:8081" # pgweb
+      - "8081:8081"
     command: ["pgweb", "--bind=0.0.0.0", "--listen=8081", "--binary-codec=hex"]
     environment:
       - DATABASE_URL=postgres://graph-node:let-me-in@postgres:5432/graph-node?sslmode=disable
     depends_on:
       - postgres
-    #network_mode: service:postgres
 
 networks:
   default:
