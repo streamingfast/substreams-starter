@@ -48,6 +48,4 @@
         "./substreams": {},
         "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
     },
-
-    //"postCreateCommand": "$(ls  /vscode/bin/*/*/bin/code-server /home/vscode/.vscode-server/bin/*/bin/code-server | head -n1 ) --install-extension .vscode/streamingfast.substreams/substreams-0.0.1.vsix",
 }

@@ -54,11 +54,10 @@ services:
     image: postgres:15
     ports:
       - "5432:5432"
-    command: [
-      "postgres",
-      "-cshared_preload_libraries=pg_stat_statements",
-      #"-clog_statement=all",
-    ],
+    command:
+    -  "postgres"
+    -  "-cshared_preload_libraries=pg_stat_statements"
+    #-  "-clog_statement=all"
     environment:
       POSTGRES_USER: graph-node
       POSTGRES_PASSWORD: let-me-in

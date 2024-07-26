@@ -30,8 +30,12 @@
       },
       {
         "category": "Substreams",
-        "command": "substreams.newBlankModule",
-        "title": "Initialize a new blank module"
+        "command": "substreams.runGui",
+        "title": "Run Substreams GUI"
+      },      {
+        "category": "Substreams",
+        "command": "substreams.loadFromRegistry",
+        "title": "Download a module from the Substreams.dev Registry"
       },      
       {
         "category": "Substreams",
@@ -47,6 +51,16 @@
         "category": "Substreams",
         "command": "substreams.build",
         "title": "Build Package"
+      },
+      {
+        "category": "Substreams",
+        "command": "substreams.initSubgraph",
+        "title": "Generate subgraph from Substreams module"
+      },      
+      {
+        "category": "Substreams",
+        "command": "substreams.initSql",
+        "title": "Generate Substreams:SQL from module"
       }
     ],
 
@@ -59,24 +73,22 @@
           {
             "id": "build",
             "title": "Start building",
-            "description": "Becoming an expert starts here\n\n[Create a blank new module](command:substreams.newBlankModule)\n[Open public repo](command:substreams.openRepository)\n[Generate initial project](command:substreams.runInit)\n[Build upon existing module](command:substreams.buildFromExistingPackage)\n",
+            "description": "There are plenty of already existing modules on [substreams.dev](https://substreams.dev), you can start from one of them:\n\n[Download module from Registry](command:substreams.loadFromRegistry)\n\nIf you prefer, start from a code generator, or start from scratch:\n\n[Scaffold new module](command:substreams.runInit)\n\nor run: ``substreams init``\n",
             "media": {
-              "image": "media/feature1.png",
-              "altText": "Build your own"
+              "image": "media/substreams.svg",
+              "altText": "Start building"
             },
             "completionEvents": [
-              "onCommand:substreams.newBlankModule",
-              "onCommand:substreams.openRepository",
-              "onCommand:substreams.buildFromExistingPackage",
+              "onCommand:substreams.loadFromRegistry",
               "onCommand:substreams.runInit"
             ]
           },
           {
             "id": "auth",
             "title": "Get an API token",
-            "description": "Get a token to start streaming:\n\n[Get a lower-powered API key](command:substreams.getSimpleApiKey)\n[Create account and get 1TB free](command:substreams.marketAuth)\n\nTip: A lower-power key is short-lived and useful for initial exploration.\n",
+            "description": "Get streaming immediately with a lower-powered API token, ideal for initial exploration (these keys are short-lived):\n\n[Get a lower-powered API key](command:substreams.getSimpleApiKey)\n\nCreate an account on [thegraph.market](https://thegraph.market), to benefit from The Graph indexers, and a free 1 TB/month:\n\n[Create account on The Graph Market](command:substreams.marketAuth)\n\nor run: ``substreams auth``\n",
             "media": {
-              "image": "media/feature2.png",
+              "image": "media/substreams.svg",
               "altText": "Authenticate"
             },
             "completionEvents": [
@@ -87,30 +99,39 @@
           {
             "id": "stream",
             "title": "Start streaming",
-            "description": "See the data flowing\n\n[Run the GUI](command:substreams.runGui)\n[Run the CLI streamer](command:substreams.runRun)\n[Load data into Postgres](command:substreams.runPostgresSink)\n[Pipe Substreams into a subgraph](command:substreams.runSubgraph)",
+            "description": "This is where it gets exciting: see the data flow. Choose between:\n[Run: `substreams gui`](command:substreams.runGui)\nor, find __Substreams: Run Substreams GUI__ in the [Command Palette](command:workbench.action.showCommands) (Cmd+Shift+P / F1).",
             "media": {
-              "image": "media/feature2.png",
+              "image": "media/substreams.svg",
               "altText": "Streaming"
             },
             "completionEvents": [
-              "onCommand:substreams.runGui",
-              "onCommand:substreams.runPostgresSink",
-              "onCommand:substreams.runSubgraph",
-              "onCommand:substreams.runRun"
+              "onCommand:substreams.runGui"
             ]
           },
           {
-            "id": "explore",
-            "title": "Explore the data",
-            "description": "Query the data\n\n[Open web view to Postgres](command:substreams.openPgWeb)\n[Open GraphQL into a subgraph](command:substreams.openSubgraphQuery)\n",
+            "id": "sink",
+            "title": "Index the data",
+            "description": "Create a subgraph based on your Substreams module:\n\n[Generate subgraph](command:substreams.initSubgraph)\n\nor run: ``substreams codegen subgraph``\n\nPrefer direct SQL? Send your Substreams' module's data into postgres:\n\n[Generate SQL Sink](command:substreams.initSql)\n\nor run: ``substreams codegen sql``",
             "media": {
-              "image": "media/feature2.png",
-              "altText": "Explore"
+              "image": "media/substreams.svg",
+              "altText": "Index the data"
+            },
+            "completionEvents": [
+              "onCommand:substreams.initSubgraph",
+              "onCommand:substreams.initSql"
+            ]
+          },
+          {
+            "id": "query",
+            "title": "Query the data",
+            "description": "This environment contains a Web interface to your postgres database:\n\n[Open web view to Postgres](command:substreams.openPgWeb)\n\nYou're developing a subgraph? Query it directly within VS Code:\n\n[Open GraphQL into a subgraph](command:substreams.openSubgraphQuery)\n",
+            "media": {
+              "image": "media/substreams.svg",
+              "altText": "Query data"
             },
             "completionEvents": [
               "onCommand:substreams.openPgWeb",
-              "onCommand:substreams.openSubgraphQuery",
-              "onCommand:substreams.runGui"
+              "onCommand:substreams.openSubgraphQuery"
             ]
           }
         ]
