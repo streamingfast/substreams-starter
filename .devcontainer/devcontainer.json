@@ -46,6 +46,9 @@
     
     "features": {
         "./substreams": {},
-        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+        "ghcr.io/devcontainers/features/go:1": {}
     },
+
+    "postCreateCommand": "/workspace/.devcontainer/post-create.sh",
 }
