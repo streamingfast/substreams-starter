@@ -1,5 +1,5 @@
 {
-    "name": "Substreams development",
+    "name": "Substreams Starter",
     "dockerComposeFile": "docker-compose.yml",
     "service": "main",
     "workspaceFolder": "/workspace",
