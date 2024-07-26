@@ -4,12 +4,6 @@
     "service": "main",
     "workspaceFolder": "/workspace",
     "containerEnv": {},
-    "secrets": {
-        "SUBSTREAMS_API_TOKEN": {
-            "description": "The API token to access Substreams endpoints",
-            "documentationUrl": "https://substreams.streamingfast.io/documentation/consume/authentication"
-        },
-    },
     "forwardPorts": [
         "postgres:5432",
         "ipfs:5001",
