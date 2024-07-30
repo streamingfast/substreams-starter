@@ -82,7 +82,3 @@ services:
       - DATABASE_URL=postgres://graph-node:let-me-in@postgres:5432/graph-node?sslmode=disable
     depends_on:
       - postgres
-
-networks:
-  default:
-    driver: default
