@@ -42,10 +42,8 @@ services:
       ipfs: 'ipfs:5001'
       GRAPH_LOG: info
       GRAPH_NODE_CONFIG: /workspace/.graph-node/config.toml
-      SUBSTREAMS_ENDPOINT: mainnet.eth.streamingfast.io:443
-      SUBSTREAMS_API_TOKEN: non-nil-try-me  # Eventually, replace this by a command that is driven by the 'main' container, and can restart the pod at will, with changed configuration.
     command:
-      - /workspace/.devcontainer/start-graph-node.sh
+      - /workspace/.devcontainer/wait-graph-node.sh
     depends_on:
       - ipfs
       - postgres

@@ -8,15 +8,17 @@ pool_size = 10
 
 [chains]
 ingestor = "block_ingestor_node"
-[chains.mainnet]
-protocol = "substreams"
-shard = "primary"
-provider = [
-    { label = "substreams", details = { type = "substreams", url = "$SUBSTREAMS_ENDPOINT", token = "$SUBSTREAMS_API_TOKEN", features = [
-        "compression",
-        "filters",
-    ], conn_pool_size = 1 } },
-]
+
+# Sample chain configuration:
+#  - Modify [chains.mainnet] to correspond to a well-known chain from https://thegraph.com/docs/en/developing/supported-networks/
+#  - Provide an endpoint under "url", that you can grab from https://thegraph.market
+#
+# [chains.mainnet]
+# protocol = "substreams"
+# shard = "primary"
+# provider = [
+#     { label = "substreams", details = { type = "substreams", url = "mainnet.eth.streamingfast.io:443", token = "$SUBSTREAMS_API_TOKEN", features = [ "compression" ], conn_pool_size = 1 } },
+# ]
 
 [deployment]
 [[deployment.rule]]
