@@ -18,6 +18,7 @@
     "portsAttributes": {
         "1065": {
             "label": "pprof",
+            "onAutoForward": "silent"
         },
         "ipfs:5001": {
             "label": "ipfs (/webui)",
