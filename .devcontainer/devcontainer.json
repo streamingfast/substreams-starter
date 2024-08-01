@@ -31,6 +31,7 @@
                 "1yib.rust-bundle",
                 "rust-lang.rust-analyzer",
                 "vadimcn.vscode-lldb",
+                "ms-azuretools.vscode-docker",
                 "/workspace/.vscode/streamingfast.substreams/substreams-0.0.1.vsix"
             ],
             "settings": {   
@@ -40,6 +41,7 @@
     },
     
     "features": {
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
         "./substreams": {}
     },
 

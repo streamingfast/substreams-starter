@@ -6,6 +6,7 @@ services:
     platform: linux/amd64
     volumes:
       - ..:/workspace:cached
+      - /var/run/docker.sock:/var/run/docker-host.sock
     entrypoint: '/bin/sh -c "while sleep 1000; do :; done"'
     depends_on:
       - postgres

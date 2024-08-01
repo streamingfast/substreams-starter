@@ -13,9 +13,12 @@ RUN LINK=$(curl -s https://api.github.com/repos/bufbuild/buf/releases/latest | a
 RUN ARCH=$(dpkg --print-architecture); curl -LO https://go.dev/dl/go1.22.5.linux-$ARCH.tar.gz && tar -C /usr/local -xzf go1.22.5.linux-$ARCH.tar.gz && rm go1.22.5.linux-$ARCH.tar.gz
 RUN ARCH=$(dpkg --print-architecture); curl -LO https://github.com/tinygo-org/tinygo/releases/download/v0.32.0/tinygo_0.32.0_$ARCH.deb && dpkg -i tinygo_0.32.0_$ARCH.deb && rm tinygo_0.32.0_$ARCH.deb
 
-RUN curl -LO https://raw.githubusercontent.com/devcontainers/features/main/src/docker-outside-of-docker/install.sh && chmod +x /install.sh && ./install.sh && rm install.sh
+RUN curl -LO https://raw.githubusercontent.com/devcontainers/features/main/src/docker-outside-of-docker/install.sh && chmod +x /install.sh && ./install.sh && rm install.sh # this is done again in the 'devcontainer feature' but precached all pkgs
+
+RUN chown -R vscode /usr/local/cargo
 
 RUN rm -rf /var/lib/apt/lists/*
 
-ENV PATH="$PATH:/usr/local/go/bin"
+ENV PATH="$PATH:/usr/local/go/bin:/go/bin"
 ENV GOROOT="/usr/local/go"
+ENV GOPATH="/go"
