@@ -3,7 +3,9 @@
     "dockerComposeFile": "docker-compose.yml",
     "service": "main",
     "workspaceFolder": "/workspace",
-    "containerEnv": {},
+    "containerEnv": {
+        "SUBSTREAMS_INIT_CODEGEN_ENDPOINT": "https://codegen-staging.substreams.dev"
+    },
     "forwardPorts": [
         "postgres:5432",
         "ipfs:5001",
@@ -25,7 +27,7 @@
             "onAutoForward": "silent"
         },
     },
-        "customizations": {
+    "customizations": {
         "vscode": {
             "extensions": [
                 "1yib.rust-bundle",
@@ -39,7 +41,7 @@
             }
         }
     },
-    
+
     "features": {
         "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
         "./substreams": {}
