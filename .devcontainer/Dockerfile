@@ -22,3 +22,7 @@ RUN rm -rf /var/lib/apt/lists/*
 ENV PATH="$PATH:/usr/local/go/bin:/go/bin"
 ENV GOROOT="/usr/local/go"
 ENV GOPATH="/go"
+ENV SUBSTREAMS_INIT_CODEGEN_ENDPOINT="codegen-staging.substreams.dev"
+
+# docker buildx build --platform linux/amd64  . -t ghcr.io/streamingfast/substreams-starter:latest
+# docker push ghcr.io/streamingfast/substreams-starter:latest
