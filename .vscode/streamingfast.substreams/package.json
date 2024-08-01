@@ -73,7 +73,7 @@
           {
             "id": "build",
             "title": "Start building",
-            "description": "There are plenty of already existing modules on [substreams.dev](https://substreams.dev), you can start from one of them:\n\n[Download module from Registry](command:substreams.loadFromRegistry)\n\nIf you prefer, start from a code generator, or start from scratch:\n\n[Scaffold new module](command:substreams.runInit)\n\nor run: ``substreams init``\n",
+            "description": "Start from a code generator, or start from scratch:\n\n[Scaffold new module](command:substreams.runInit)\n\nor run: ``substreams init``\n",
             "media": {
               "image": "media/substreams.svg",
               "altText": "Start building"
@@ -86,7 +86,7 @@
           {
             "id": "auth",
             "title": "Get an API token",
-            "description": "Get streaming immediately with a lower-powered API token, ideal for initial exploration (these keys are short-lived):\n\n[Get a lower-powered API key](command:substreams.getSimpleApiKey)\n\nCreate an account on [thegraph.market](https://thegraph.market), to benefit from The Graph indexers, and a free 1 TB/month:\n\n[Create account on The Graph Market](command:substreams.marketAuth)\n\nor run: ``substreams auth``\n",
+            "description": "Create a free account on [thegraph.market](https://thegraph.market), to benefit from The Graph indexers's infrastructure, and a free 1 TB/month:\n\n[Create account on The Graph Market](command:substreams.marketAuth)\n\nor run: ``substreams auth``\n",
             "media": {
               "image": "media/substreams.svg",
               "altText": "Authenticate"
