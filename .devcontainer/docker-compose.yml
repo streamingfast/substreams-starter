@@ -1,8 +1,6 @@
 services:
   main:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image:ghcr.io/streamingfast/substreams-starter:latest
     ports:
       - "9000:9000"
     platform: linux/amd64
