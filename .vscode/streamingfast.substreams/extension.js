@@ -64,6 +64,25 @@ function activate(context) {
         ));
     }));
 
+
+	context.subscriptions.push(vscode.commands.registerCommand('substreams.marketAuth', async function() {
+        vscode.tasks.executeTask(new vscode.Task(
+            {
+                type: 'shell',
+                presentation: {
+                    reveal: 'always',
+                    panel: vscode.TaskPanelKind.Dedicated,
+                    showReuseMessage: false,
+                    clear: true
+                }
+            },
+            vscode.TaskScope.Workspace,
+            'Authenticate to The Graph Market',
+            'substreams',
+            new vscode.ShellExecution('substreams auth')
+        ));
+    }));    
+
 	context.subscriptions.push(vscode.commands.registerCommand('substreams.build', async function() {
         const projectFolder = await findSubstreamsProjectRoot(vscode)
         if (!projectFolder) {
@@ -74,7 +93,7 @@ function activate(context) {
             vscode.TaskScope.Workspace,
             'Build Substreams Package',
             'substreams',
-            new vscode.ShellExecution('cargo build --target wasm32-unknown-unknown --release', {cwd: projectFolder})
+            new vscode.ShellExecution('substreams build', {cwd: projectFolder})
         ))
     }))
 	context.subscriptions.push(vscode.commands.registerCommand('substreams.newBlankModule', async function() {}));

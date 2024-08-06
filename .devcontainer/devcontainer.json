@@ -37,7 +37,11 @@
                 "/workspace/.vscode/streamingfast.substreams/substreams-0.0.1.vsix"
             ],
             "settings": {   
-
+                "ms-azuretools.vscode-docker": {
+                    "disableWalkthroughs": [
+                        "dockerStart"
+                    ]
+                }
             }
         }
     },
