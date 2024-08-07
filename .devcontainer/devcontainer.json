@@ -34,7 +34,8 @@
                 "rust-lang.rust-analyzer",
                 "vadimcn.vscode-lldb",
                 "ms-azuretools.vscode-docker",
-                "/workspace/.vscode/streamingfast.substreams/substreams-0.0.1.vsix"
+                "/workspace/.vscode/streamingfast.substreams/substreams-0.0.1.vsix",
+                "peterj.proto",
             ],
             "settings": {   
                 "ms-azuretools.vscode-docker": {

@@ -28,8 +28,7 @@ const substreamsModuleSubfolderError = 'Run command on file inside a project wit
 async function findSubstreamsProjectRoot(vscode) {
     const activeEditor = vscode.window.activeTextEditor;
     if (!activeEditor) {
-        vscode.window.showInformationMessage(substreamsModuleSubfolderError);
-        return
+        return vscode.workspace.workspaceFolders[0].uri.fsPath
     }
 
     const parentFolder = await getParentFolderWithFile(activeEditor.document.uri.fsPath, "substreams.yaml")
@@ -83,13 +82,21 @@ function activate(context) {
         ));
     }));    
 
-	context.subscriptions.push(vscode.commands.registerCommand('substreams.build', async function() {
+	context.subscriptions.push(vscode.commands.registerCommand('substreams.runBuild', async function() {
         const projectFolder = await findSubstreamsProjectRoot(vscode)
         if (!projectFolder) {
             return
         }
         vscode.tasks.executeTask(new vscode.Task(
-            {type: 'shell'},
+            {
+                type: 'shell',
+                presentation: {
+                    reveal: 'always',
+                    panel: vscode.TaskPanelKind.Dedicated,
+                    showReuseMessage: false,
+                    clear: true
+                }
+            },
             vscode.TaskScope.Workspace,
             'Build Substreams Package',
             'substreams',
@@ -132,7 +139,15 @@ function activate(context) {
             return
         }        
         vscode.tasks.executeTask(new vscode.Task(
-            {type: 'shell'},
+            {
+                type: 'shell',
+                presentation: {
+                    reveal: 'always',
+                    panel: vscode.TaskPanelKind.Dedicated,
+                    showReuseMessage: false,
+                    clear: true
+                }
+            },
             vscode.TaskScope.Workspace,
             'Substreams GUI',
             'substreams',
@@ -182,21 +197,6 @@ function activate(context) {
         `streamingfast.substreams#starter`,
         false,
     );
-	// context.subscriptions.push(vscode.commands.registerCommand('substreams.runInit', function () {
-    //     vscode.tasks.executeTask({
-    //         type: 'shell',
-    //         command: 'substreams init',
-    //         problemMatcher: [],
-    //         presentation: {
-    //             reveal: 'always',
-    //             panel: vscode.TaskPanelKind.New,
-    //             showReuseMessage: true,
-    //             clear: true
-    //         },
-    //         name: 'Init new module'
-    //     });
-	// }));
-
     
 }
 

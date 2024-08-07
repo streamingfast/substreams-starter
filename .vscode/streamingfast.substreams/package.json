@@ -49,7 +49,7 @@
       },      
       {
         "category": "Substreams",
-        "command": "substreams.build",
+        "command": "substreams.runBuild",
         "title": "Build Package"
       },
       {
@@ -81,6 +81,18 @@
             "completionEvents": [
               "onCommand:substreams.loadFromRegistry",
               "onCommand:substreams.runInit"
+            ]
+          },
+          {
+            "id": "buildCode",
+            "title": "(Optional) Build your substreams",
+            "description": "Build your substreams:\n\n[Build substreams](command:substreams.runBuild)\n\nor run: ``substreams build``\n",
+            "media": {
+              "image": "media/substreams.svg",
+              "altText": "Build substreams"
+            },
+            "completionEvents": [
+              "onCommand:substreams.runBuild"
             ]
           },
           {
