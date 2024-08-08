@@ -2,9 +2,12 @@
 
 ## Getting Started
 
-<table><tr><td valign="top">Try ASAP, click here:</td><td>
+<table><tr><td valign="top" align="right">Try <b>now</b>, click <b>Open</b>:
+  
+Your first 60h/month are free!
+</td><td>
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new/streamingfast/substreams-starter)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new/streamingfast/substreams-starter?machine=standardLinux32gb)
 </td></tr></table>
 
 > This will open a containerized, fully featured development environment, using [GitHub Codespaces](https://github.com/features/codespaces).

@@ -73,78 +73,11 @@
           {
             "id": "build",
             "title": "Start building",
-            "description": "Start from a code generator, or start from scratch:\n\n[Scaffold new module](command:substreams.runInit)\n\nor run: ``substreams init``\n",
+            "description": "Open a Terminal, and start building with:\n\n* ``substreams init``\n* ``substreams build``\n* ``substreams auth``\n* ``substreams gui``\n\n[Open Terminal](command:workbench.action.terminal.new)",
             "media": {
               "image": "media/substreams.svg",
               "altText": "Start building"
-            },
-            "completionEvents": [
-              "onCommand:substreams.loadFromRegistry",
-              "onCommand:substreams.runInit"
-            ]
-          },
-          {
-            "id": "buildCode",
-            "title": "(Optional) Build your substreams",
-            "description": "Build your substreams:\n\n[Build substreams](command:substreams.runBuild)\n\nor run: ``substreams build``\n",
-            "media": {
-              "image": "media/substreams.svg",
-              "altText": "Build substreams"
-            },
-            "completionEvents": [
-              "onCommand:substreams.runBuild"
-            ]
-          },
-          {
-            "id": "auth",
-            "title": "Get an API token",
-            "description": "Create a free account on [thegraph.market](https://thegraph.market), to benefit from The Graph indexers's infrastructure, and a free 1 TB/month:\n\n[Create account on The Graph Market](command:substreams.marketAuth)\n\nor run: ``substreams auth``\n",
-            "media": {
-              "image": "media/substreams.svg",
-              "altText": "Authenticate"
-            },
-            "completionEvents": [
-              "onCommand:substreams.getSimpleApiKey",
-              "onCommand:substreams.marketAuth"
-            ]
-          },
-          {
-            "id": "stream",
-            "title": "Start streaming",
-            "description": "This is where it gets exciting: see the data flow. Choose between:\n[Run: `substreams gui`](command:substreams.runGui)\nor, find __Substreams: Run Substreams GUI__ in the [Command Palette](command:workbench.action.showCommands) (Cmd+Shift+P / F1).",
-            "media": {
-              "image": "media/substreams.svg",
-              "altText": "Streaming"
-            },
-            "completionEvents": [
-              "onCommand:substreams.runGui"
-            ]
-          },
-          {
-            "id": "sink",
-            "title": "Index the data",
-            "description": "Create a subgraph based on your Substreams module:\n\n[Generate subgraph](command:substreams.initSubgraph)\n\nor run: ``substreams codegen subgraph``\n\nPrefer direct SQL? Send your Substreams' module's data into postgres:\n\n[Generate SQL Sink](command:substreams.initSql)\n\nor run: ``substreams codegen sql``",
-            "media": {
-              "image": "media/substreams.svg",
-              "altText": "Index the data"
-            },
-            "completionEvents": [
-              "onCommand:substreams.initSubgraph",
-              "onCommand:substreams.initSql"
-            ]
-          },
-          {
-            "id": "query",
-            "title": "Query the data",
-            "description": "This environment contains a Web interface to your postgres database:\n\n[Open web view to Postgres](command:substreams.openPgWeb)\n\nYou're developing a subgraph? Query it directly within VS Code:\n\n[Open GraphQL into a subgraph](command:substreams.openSubgraphQuery)\n",
-            "media": {
-              "image": "media/substreams.svg",
-              "altText": "Query data"
-            },
-            "completionEvents": [
-              "onCommand:substreams.openPgWeb",
-              "onCommand:substreams.openSubgraphQuery"
-            ]
+            }
           }
         ]
       }
