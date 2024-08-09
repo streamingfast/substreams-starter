@@ -12,7 +12,7 @@ Your first 60h/month are free!
 
 > This will open a fully featured **Devcontainer-based** development environment, using [GitHub Codespaces](https://github.com/features/codespaces).
 
-Within the IDE, in a Terminal, run:
+Within the IDE, in a Terminal (`F1` -> `Terminal: Create New Terminal`), run:
 
 ```bash
 substreams init
