@@ -17,7 +17,7 @@ ingestor = "block_ingestor_node"
 # protocol = "substreams"
 # shard = "primary"
 # provider = [
-#     { label = "substreams", details = { type = "substreams", url = "mainnet.eth.streamingfast.io:443", token = "$SUBSTREAMS_API_TOKEN", features = [ "compression" ], conn_pool_size = 1 } },
+#     { label = "substreams", details = { type = "substreams", url = "https://mainnet.eth.streamingfast.io:443", token = "$SUBSTREAMS_API_TOKEN", features = [ "compression" ], conn_pool_size = 1 } },
 # ]
 
 [deployment]

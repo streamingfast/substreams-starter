@@ -39,8 +39,6 @@ substreams codegen sql
 
 ## Clone in local VSCode
 
-Devcontainers, the environment proposed here, have **greatly matured** in the past 3 years. They have been [standardized](https://containers.dev/), implemented in [multiple IDEs and tools](https://containers.dev/supporting), and are used at scale in great companies (eg. [Shopify](https://shopify.engineering/shopifys-cloud-development-journey)).
-
 VSCode has excellent support for such containers. See [their documentation](https://code.visualstudio.com/docs/devcontainers/containers).
 
 - Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
@@ -48,10 +46,13 @@ VSCode has excellent support for such containers. See [their documentation](http
 - Install the [Devcontainer Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) in VSCode
 - Open this repository, and execute "Rebuild & open in container"
 
+> [!NOTE]
+> Devcontainers, the environment proposed here, have **greatly matured** in the past 3 years. They have been [standardized](https://containers.dev/), implemented in [multiple IDEs and tools](https://containers.dev/supporting), and are used at scale in great companies (eg. [Shopify](https://shopify.engineering/shopifys-cloud-development-journey)).
+
 
 ## Local install
 
-The Devcontainer is the preferred way to develop Substreams. Our documentation generally assumes this environment.
+The **Devcontainer is the preferred way** to develop Substreams. Our documentation generally assumes this environment.
 
 If you prefer, you can install all components locally by following our [installation docs](https://substreams.streamingfast.io/documentation/consume/installing-the-cli).
 
