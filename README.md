@@ -28,14 +28,9 @@ substreams codegen subgraph
 substreams codegen sql
 ```
 
-
-## Included in the dev environment
-
-- `substreams` preinstalled
-- For _Substreams_ development: **Rust** toolchain, `buf` and protobuf tooling, 
-- For _subgraph_ development: **node/npm**, along with all subgraph services, running in the devcontainer (`graph-node`, `postgres`, `ipfs`) directly accessible locally or remotely.
-- Pre-configured VSCode extensions for everything, plus a custom _VSCode Substreams Extension_.
-
+Learn more:
+- [Tutorials](https://substreams.streamingfast.io/tutorials/)
+- [Substreams Documentation](https://substreams.streamingfast.io)
 
 ## Clone in local VSCode
 
@@ -55,4 +50,13 @@ VSCode has excellent support for such containers. See [their documentation](http
 The **Devcontainer is the preferred way** to develop Substreams. Our documentation generally assumes this environment.
 
 If you prefer, you can install all components locally by following our [installation docs](https://substreams.streamingfast.io/documentation/consume/installing-the-cli).
+
+
+## Included in the dev environment
+
+- `substreams` preinstalled
+- For _Substreams_ development: **Rust** toolchain, `buf` and protobuf tooling, 
+- For _subgraph_ development: **node/npm**, along with all subgraph services, running in the devcontainer (`graph-node`, `postgres`, `ipfs`) directly accessible locally or remotely.
+- Pre-configured VSCode extensions for everything, plus a custom _VSCode Substreams Extension_.
+
 
