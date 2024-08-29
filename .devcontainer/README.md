@@ -3,7 +3,7 @@
 ## Getting Started
 
 <table><tr><td valign="top" align="right">Try <b>now</b>, click <b>Open</b>:
-  
+
 Your first 60h/month are free!
 </td><td>
 
