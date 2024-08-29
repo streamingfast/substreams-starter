@@ -3,7 +3,8 @@
     "dockerComposeFile": "docker-compose.yml",
     "service": "main",
     "containerEnv": {
-        "SUBSTREAMS_INIT_CODEGEN_ENDPOINT": "https://codegen-staging.substreams.dev"
+        "SUBSTREAMS_INIT_CODEGEN_ENDPOINT": "https://codegen-staging.substreams.dev",
+        "DOCKER_CLI_HINTS": "false"
     },
     "forwardPorts": [
         "postgres:5432",
