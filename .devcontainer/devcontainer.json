@@ -2,7 +2,6 @@
     "name": "Substreams Starter",
     "dockerComposeFile": "docker-compose.yml",
     "service": "main",
-    "workspaceFolder": "/workspace",
     "containerEnv": {
         "SUBSTREAMS_INIT_CODEGEN_ENDPOINT": "https://codegen-staging.substreams.dev"
     },
@@ -15,7 +14,7 @@
         "graph-node:8001",
         "graph-node:8020",
         "graph-node:8030",
-        "graph-node:8040",
+        "graph-node:8040"
     ],
     "portsAttributes": {
         "1065": {
@@ -25,7 +24,7 @@
         "ipfs:5001": {
             "label": "ipfs (/webui)",
             "onAutoForward": "silent"
-        },
+        }
     },
     "customizations": {
         "vscode": {
@@ -35,7 +34,7 @@
                 "vadimcn.vscode-lldb",
                 "ms-azuretools.vscode-docker",
                 "/workspace/.vscode/streamingfast.substreams/substreams-0.0.1.vsix",
-                "bufbuild.vscode-buf",
+                "bufbuild.vscode-buf"
             ],
             "settings": {
                 "workbench.welcomePage.walkthroughs.openOnInstall": false,
@@ -48,5 +47,5 @@
         "./substreams": {}
     },
 
-    "postCreateCommand": "/workspace/.devcontainer/post-create.sh",
+    "postCreateCommand": "/workspace/.devcontainer/post-create.sh"
 }
