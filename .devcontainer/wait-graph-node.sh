@@ -13,8 +13,8 @@ if ! command -v reflex &> /dev/null; then
 fi
 
 
-echo "Waiting for /workspace/.graph-node/config.toml to have a configured endpoint"
-until grep -q '^\[chains\..*\]$' /workspace/.graph-node/config.toml; do
+echo "Waiting for /workspace/.substreams.env to have a configured endpoint"
+until test -e /workspace/.substreams.env && grep -q 'SUBSTREAMS_API_TOKEN=' /workspace/.substreams.env; do
     sleep 1
 done
 
