@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ -f /workspace/.env ]; then
-    source /workspace/.env
+if [ -f /workspace/.substreams.env ]; then
+    source /workspace/.substreams.env
 fi
 
 start

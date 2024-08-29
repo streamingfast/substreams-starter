@@ -19,4 +19,4 @@ until test -e /workspace/.substreams.env && grep -q 'SUBSTREAMS_API_TOKEN=' /wor
 done
 
 echo "Config ready, launching graph-node..."
-reflex -g /workspace/.graph-node/config.toml -g /workspace/.env -s /workspace/.devcontainer/start-graph-node.sh
+reflex -g /workspace/.graph-node/config.toml -g /workspace/.substreams.env -s /workspace/.devcontainer/start-graph-node.sh
