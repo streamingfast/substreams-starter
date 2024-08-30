@@ -1,6 +1,7 @@
 {
     "name": "Substreams Starter",
     "dockerComposeFile": "docker-compose.yml",
+    "workspaceFolder": "/workspace",
     "service": "main",
     "containerEnv": {
         "SUBSTREAMS_INIT_CODEGEN_ENDPOINT": "https://codegen-staging.substreams.dev",
