@@ -23,7 +23,7 @@ services:
       - postgres
 
   graph-node:
-    image: graphprotocol/graph-node
+    image: graphprotocol/graph-node:9a51f3b
     ports:
       - '8000:8000'
       - '8001:8001'
@@ -41,6 +41,7 @@ services:
       ipfs: 'ipfs:5001'
       GRAPH_LOG: info
       GRAPH_NODE_CONFIG: /workspace/.graph-node/config.toml
+      GRAPH_STORE_WRITE_BATCH_SIZE: 0
     command:
       - /workspace/.devcontainer/wait-graph-node.sh
     depends_on:
