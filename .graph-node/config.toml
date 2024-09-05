@@ -35,6 +35,13 @@ provider = [
     { label = "substreams", details = { type = "substreams", url = "https://mainnet.injective.streamingfast.io:443", token = "$SUBSTREAMS_API_TOKEN", features = [ "compression" ], conn_pool_size = 1 } },
 ]
 
+[chains.solana-mainnet-beta]
+protocol = "substreams"
+shard = "primary"
+provider = [
+    { label = "substreams", details = { type = "substreams", url = "https://mainnet.sol.streamingfast.io:443", token = "$SUBSTREAMS_API_TOKEN", features = [ "compression" ], conn_pool_size = 1 } },
+]
+
 [deployment]
 [[deployment.rule]]
 shard = "primary"
