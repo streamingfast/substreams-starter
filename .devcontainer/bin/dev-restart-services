@@ -1,0 +1,33 @@
+#!/bin/bash
+
+PROJECT=$(docker inspect --format='{{index .Config.Labels "com.docker.compose.project"}}' $HOSTNAME)
+DOCKERPS=$(docker ps -a --format=json)
+CONTAINERS=$(echo -e $DOCKERPS | jq -r 'select(.Names | startswith("'$PROJECT'"))|.Names')
+
+for container in $CONTAINERS; do
+  case $container in 
+    *-graph-node-1)
+        GRAPHNODE_CONTAINER=$container
+        ;;
+    *-ipfs-1)
+        IPFS_CONTAINER=$container
+        ;;
+    *-pgweb-1)
+        PGWEB_CONTAINER=$container
+        ;;
+    *-postgres-1)
+        POSTGRES_CONTAINER=$container
+        ;;
+  esac
+done
+if [[ "$GRAPHNODE_CONTAINER" == "" || "$IPFS_CONTAINER" == "" || "$POSTGRES_CONTAINER" == "" ]]; then
+    echo "Error: Missing container(s): GRAPHNODE=$GRAPHNODE_CONTAINER, IPFS=$IPFS_CONTAINER, POSTGRES=$POSTGRES_CONTAINER, PGWEB=$PGWEB_CONTAINER"
+    exit 1
+fi
+
+echo "Stopping containers..."
+docker stop $GRAPHNODE_CONTAINER $IPFS_CONTAINER $POSTGRES_CONTAINER $PGWEB_CONTAINER
+
+echo "Starting..."
+docker start $IPFS_CONTAINER $POSTGRES_CONTAINER
+docker start $GRAPHNODE_CONTAINER  $PGWEB_CONTAINER

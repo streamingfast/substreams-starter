@@ -1,0 +1,85 @@
+#!/bin/bash
+
+PROJECT=$(docker inspect --format='{{index .Config.Labels "com.docker.compose.project"}}' $HOSTNAME)
+DOCKERPS=$(docker ps --format=json)
+SUBSTREAMS_VERSION=$(substreams --version)
+CONTAINERS=$(echo -e $DOCKERPS | jq -r 'select(.Names | startswith("'$PROJECT'"))|.Names')
+
+COLOR_RED='\033[0;31m'
+COLOR_DEFAULT='\033[0m'
+
+redline() {
+    echo -e "$COLOR_RED$1$COLOR_DEFAULT"
+}
+
+echo
+redline "############### Running containers ################"
+for container in $CONTAINERS; do
+  role=unknown
+  case $container in 
+    *-main-1)
+        role="Main (this container)"
+        ;;
+    *-graph-node-1)
+        role="Graph Node"
+        GRAPHNODE_CONTAINER=$container
+        ;;
+    *-pgweb-1)
+        role="PGWeb"
+        ;;
+    *-ipfs-1)
+        role="IPFS server"
+        IPFS_CONTAINER=$container
+        ;;
+    *-postgres-1)
+        role="Postgres database"
+        POSTGRES_CONTAINER=$container
+        ;;
+  esac
+  status=$(echo -e $DOCKERPS | jq -r 'select(.Names=="'$container'") | "\(.State) - \(.Status)"')
+  STATUSES="$STATUSES\n- $container\t$role\t$status"
+done 
+
+echo -e $STATUSES| column -t -s "$(printf '\t')"
+
+if ! [[ -e $WORKSPACE_FOLDER/.substreams.env ]]; then
+    echo
+    echo "The $WORKSPACE_FOLDER/.substreams.env file is missing. Please authenticate using 'substreams auth' from $WORKSPACE_FOLDER folder."
+    echo
+    exit 1
+fi
+
+if nc -z $LOCAL_GRAPH_NODE_HOSTNAME 8000; then
+    echo
+    redline "################ Graph-node chains ################"
+    docker exec -ti $GRAPHNODE_CONTAINER bash -i -c "graphman chain list"
+    echo
+    redline "############## Graph-node deployements ############"
+    docker exec -ti $GRAPHNODE_CONTAINER bash -i -c "graphman info --all --status"
+else
+    echo
+    redline "################ Graph-node status ################"
+    if [[ "$GRAPHNODE_CONTAINER" == "" ]]; then
+        echo "Couldn't find the graph-node container. Try rebuilding your devcontainer environment."
+    fi
+
+    echo
+    echo "Graph-node is not reachable at ${LOCAL_GRAPH_NODE_HOSTNAME}:8000"
+    echo 
+
+    status=$(docker inspect substreams-starter_devcontainer-graph-node-1|jq .[].State)
+    if [[ "$(echo -e $status |jq -r .Status)" == "running" ]]; then
+        echo "The graph-node container is running. Please check the logs for more information by running 'dev-logs-graphnode'."
+        echo
+        exit
+    else
+        echo "Current status of the container:"
+        echo -e $status | jq .
+        echo
+        echo "You can try to start the container by running 'dev-restart-services'."
+        echo "You can check the logs for more information by running 'dev-logs-graphnode'."
+        echo
+        exit
+    fi
+
+fi

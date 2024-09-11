@@ -7,7 +7,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
 
 RUN cargo install protoc-gen-prost protoc-gen-prost-crate
 
-RUN apt-get -y install --no-install-recommends ca-certificates gnupg2 tar gcc make pkg-config
+RUN apt-get -y install --no-install-recommends ca-certificates gnupg2 tar gcc make pkg-config netcat-openbsd
 
 RUN LINK=$(curl -s https://api.github.com/repos/bufbuild/buf/releases/latest | awk "/download.url.*buf-Linux-$(uname -m)\"/ {print \$2}" | sed 's/"//g') && curl -L $LINK -o /usr/bin/buf && chmod +x /usr/bin/buf
 RUN ARCH=$(dpkg --print-architecture); curl -LO https://go.dev/dl/go1.22.5.linux-$ARCH.tar.gz && tar -C /usr/local -xzf go1.22.5.linux-$ARCH.tar.gz && rm go1.22.5.linux-$ARCH.tar.gz
@@ -22,6 +22,20 @@ RUN rm -rf /var/lib/apt/lists/*
 ENV PATH="$PATH:/usr/local/go/bin:/go/bin"
 ENV GOROOT="/usr/local/go"
 ENV GOPATH="/go"
+
+RUN cargo install toml-cli
+
+ADD https://storage.googleapis.com/substreams-registry/bin/substreams-281b91d /usr/bin/substreams
+RUN chmod +x /usr/bin/substreams
+
+# the 'help' command will be added in post-create steps
+COPY <<EOF /etc/motd
+Welcome to the Substreams Development Environment!
+
+Type 'help' to see a list of available commands.
+Type 'substreams init' to start building your substreams!
+---------------------------------------------------------
+EOF
 
 # docker buildx build --platform linux/amd64  . -t ghcr.io/streamingfast/substreams-starter:latest
 # docker push ghcr.io/streamingfast/substreams-starter:latest

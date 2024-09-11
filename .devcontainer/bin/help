@@ -1,0 +1,17 @@
+#!/bin/bash
+RED="\e[31m"
+GREEN="\e[32m"
+ENDCOLOR="\e[0m"
+
+echo -e ""
+echo -e "${GREEN}Substreams development environment -- available commands${ENDCOLOR}"
+echo -e ""
+echo -e "  ${GREEN}help${ENDCOLOR}                    Show this help message"
+echo -e "  ${GREEN}dev-status${ENDCOLOR}              Information about the development environment (running containers, deployed subgraphs, etc.)"
+echo -e "  ${GREEN}dev-update${ENDCOLOR}              Update the substreams binary to the latest"
+echo -e "  ${GREEN}dev-restart-services${ENDCOLOR}    Restart service containres (graph-node, ipfs, postgres, pgweb)"
+echo -e "  ${GREEN}dev-reset-subgraphs${ENDCOLOR}     Delete all the subgraph stored data and restart containers"
+echo -e "  ${GREEN}dev-logs-graphnode${ENDCOLOR}      Show the latest logs from the graph-node container"
+echo -e "  ${GREEN}dev-logs-postgres${ENDCOLOR}      Show the latest logs from the postgres container"
+echo -e ""
+

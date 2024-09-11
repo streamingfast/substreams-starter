@@ -8,7 +8,8 @@
         "DOCKER_CLI_HINTS": "false",
         "LOCAL_GRAPH_NODE_HOSTNAME": "graph-node",
         "LOCAL_IPFS_HOSTNAME": "ipfs",
-        "GRAPH_STORE_WRITE_BATCH_SIZE": "0"
+        "GRAPH_STORE_WRITE_BATCH_SIZE": "0",
+        "WORKSPACE_FOLDER": "${containerWorkspaceFolder}"
     },
     "forwardPorts": [
         "postgres:5432",
@@ -49,7 +50,6 @@
 
     "features": {
         "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
-        "./substreams": {}
     },
 
     "postCreateCommand": "/workspace/.devcontainer/post-create.sh"

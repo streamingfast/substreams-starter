@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo curl -o /usr/bin/substreams -z /usr/bin/substreams -L https://storage.googleapis.com/substreams-registry/bin/substreams-281b91d -s
+sudo chmod +x /usr/bin/substreams

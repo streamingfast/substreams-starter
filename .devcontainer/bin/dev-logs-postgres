@@ -1,0 +1,23 @@
+#!/bin/bash
+
+PROJECT=$(docker inspect --format='{{index .Config.Labels "com.docker.compose.project"}}' $HOSTNAME)
+DOCKERPS=$(docker ps -a --format=json)
+
+CONTAINERS=$(echo -e $DOCKERPS | jq -r 'select(.Names | startswith("'$PROJECT'"))|.Names')
+
+for container in $CONTAINERS; do
+  case $container in 
+    *-postgres-1)
+        POSTGRES_CONTAINER=$container
+        ;;
+  esac
+done
+
+if [[ "$POSTGRES_CONTAINER" == "" ]]; then
+    echo "Error: Missing container(s) $PROJECT-postgres-1"
+    exit 1
+fi
+
+echo "## Logs for $POSTGRES_CONTAINER (last 5 minutes, last 10 lines) ##"
+echo
+docker logs --since=5m --tail=10 $POSTGRES_CONTAINER -f

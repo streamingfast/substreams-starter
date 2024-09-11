@@ -17,6 +17,7 @@ echo "Waiting for /workspace/.substreams.env to have a configured endpoint"
 until test -e /workspace/.substreams.env && grep -q 'SUBSTREAMS_API_TOKEN=' /workspace/.substreams.env; do
     sleep 1
 done
+echo "if [[ -f /workspace/.substreams.env ]]; then source /workspace/.substreams.env; fi" | tee -a ~/.profile >> ~/.bashrc
 
 echo "Config ready, launching graph-node..."
 reflex -g /workspace/.graph-node/config.toml -g /workspace/.substreams.env -s /workspace/.devcontainer/start-graph-node.sh

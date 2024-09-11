@@ -1,0 +1,24 @@
+#!/bin/bash
+
+PROJECT=$(docker inspect --format='{{index .Config.Labels "com.docker.compose.project"}}' $HOSTNAME)
+DOCKERPS=$(docker ps -a --format=json)
+
+CONTAINERS=$(echo -e $DOCKERPS | jq -r 'select(.Names | startswith("'$PROJECT'"))|.Names')
+
+for container in $CONTAINERS; do
+  case $container in 
+    *-graph-node-1)
+        GRAPHNODE_CONTAINER=$container
+        ;;
+  esac
+done
+
+if [[ "$GRAPHNODE_CONTAINER" == "" ]]; then
+    echo "Error: Missing container(s) $PROJECT-graph-node-1"
+    exit 1
+fi
+
+
+echo "## Logs for $GRAPHNODE_CONTAINER (last 5 minutes, last 10 lines) ##"
+echo
+docker logs --since=5m --tail=10 $GRAPHNODE_CONTAINER -f

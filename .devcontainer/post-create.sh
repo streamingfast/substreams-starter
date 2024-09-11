@@ -1,10 +1,20 @@
 #!/bin/bash
 
-echo "" >> ~/.bashrc
-echo "set -o allexport" >> ~/.bashrc
-echo "if [ -f /workspace/.env ]; then source /workspace/.env; fi" >> ~/.bashrc
-echo "set +o allexport" >> ~/.bashrc
+PATH="$PATH:/workspace/.devcontainer/bin"
 
-echo "if [ -f /workspace/.substreams.env ]; then source /workspace/.substreams.env; fi" >> ~/.bashrc
+cat <<EOC >> ~/.bashrc
+
+alias help=/workspace/.devcontainer/bin/help
+set -o allexport
+if [ -f /workspace/.env ]; then source /workspace/.env; fi
+set +o allexport
+if [ -f /workspace/.substreams.env ]; then source /workspace/.substreams.env; fi
+if [ -f /etc/motd ]; then cat /etc/motd; fi
+EOC
+# added separately to make sure the $PATH env var is not interpolated
+echo 'PATH="$PATH:/workspace/.devcontainer/bin"' >> ~/.bashrc
+
+. ~/.bashrc
+
 git config --global --add safe.directory /workspace
-
+dev-update
