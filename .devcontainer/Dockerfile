@@ -28,6 +28,8 @@ RUN cargo install toml-cli
 ADD https://storage.googleapis.com/substreams-registry/bin/substreams /usr/bin/substreams
 RUN chmod +rx /usr/bin/substreams
 
+RUN npm install -g @graphprotocol/graph-cli
+
 # the 'help' command will be added in post-create steps
 COPY <<EOF /etc/motd
 Welcome to the Substreams Development Environment!

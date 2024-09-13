@@ -13,6 +13,14 @@ redline() {
 }
 
 echo
+redline "#################### Versions #####################"
+echo
+echo -n '* ' 
+substreams --version
+echo -n '* ' 
+graph --version
+
+echo
 redline "############### Running containers ################"
 echo
 for container in $CONTAINERS; do

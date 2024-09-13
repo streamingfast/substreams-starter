@@ -1,5 +1,17 @@
 #!/bin/bash
 
+COLOR_RED='\033[0;31m'
+COLOR_DEFAULT='\033[0m'
+redline() {
+    echo -e "$COLOR_RED$1$COLOR_DEFAULT"
+}
+redline "## Updating devcontainer tools ##"
+echo -- Updating substreams --
 sudo curl -o /usr/bin/substreams -z /usr/bin/substreams -L https://storage.googleapis.com/substreams-registry/bin/substreams -s
 sudo chmod +rx /usr/bin/substreams
-cp /usr/bin/substreams /workspace/.devcontainer/bin/substreams
+cp /usr/bin/substreams /workspace/.devcontainer/bin/substreams # used by graph-node container to find network
+
+echo -- Updating global graph-cli --
+sudo npm update -g @graphprotocol/graph-cli --silent
+
+redline "## Done ##"

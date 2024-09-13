@@ -1,7 +1,5 @@
 #!/bin/bash
 
-PATH="$PATH:/workspace/.devcontainer/bin"
-
 cat <<EOC >> ~/.bashrc
 
 alias help=/workspace/.devcontainer/bin/help
@@ -12,7 +10,7 @@ if [ -f /workspace/.substreams.env ]; then source /workspace/.substreams.env; fi
 if [ -f /etc/motd ]; then cat /etc/motd; fi
 EOC
 # added separately to make sure the $PATH env var is not interpolated
-echo 'PATH="$PATH:/workspace/.devcontainer/bin"' >> ~/.bashrc
+echo 'PATH="./node_modules/.bin:$PATH:/workspace/.devcontainer/bin"' >> ~/.bashrc
 
 . ~/.bashrc
 
