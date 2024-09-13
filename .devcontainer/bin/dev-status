@@ -14,6 +14,7 @@ redline() {
 
 echo
 redline "############### Running containers ################"
+echo
 for container in $CONTAINERS; do
   role=unknown
   case $container in 
@@ -37,7 +38,11 @@ for container in $CONTAINERS; do
         ;;
   esac
   status=$(echo -e $DOCKERPS | jq -r 'select(.Names=="'$container'") | "\(.State) - \(.Status)"')
-  STATUSES="$STATUSES\n- $container\t$role\t$status"
+  comment=""
+  if [[ "$container" == "$GRAPHNODE_CONTAINER" ]] && echo $status|grep -q unhealthy ; then
+    comment=" -- becomes healthy after running 'substreams auth' and 'substreams codegen subgraph'"
+  fi
+  STATUSES="$STATUSES\n- $container\t$role\t$status$comment"
 done 
 
 echo -e $STATUSES| column -t -s "$(printf '\t')"
@@ -49,35 +54,50 @@ if ! [[ -e $WORKSPACE_FOLDER/.substreams.env ]]; then
     exit 1
 fi
 
+echo
+redline "#################### Graph-node ####################"
+if ! find $WORKSPACE_FOLDER -type f -name subgraph.yaml|grep -q .; then
+    echo
+    echo "No subgraph.yaml file found, run 'substreams codegen subgraph' if you want to generate a subgraph from your substreams."
+    echo
+    exit 0
+fi
+
 if nc -z $LOCAL_GRAPH_NODE_HOSTNAME 8000; then
     echo
-    redline "################ Graph-node chains ################"
+    redline "--------------------- Chains ----------------------"
     docker exec -ti $GRAPHNODE_CONTAINER bash -i -c "graphman chain list"
     echo
-    redline "############## Graph-node deployements ############"
+    echo "* add more chains by editing .graph-node/config.toml"
+    echo
+    redline "------------------ Deployments --------------------"
     docker exec -ti $GRAPHNODE_CONTAINER bash -i -c "graphman info --all --status"
 else
-    echo
-    redline "################ Graph-node status ################"
-    if [[ "$GRAPHNODE_CONTAINER" == "" ]]; then
-        echo "Couldn't find the graph-node container. Try rebuilding your devcontainer environment."
-    fi
-
-    echo
-    echo "Graph-node is not reachable at ${LOCAL_GRAPH_NODE_HOSTNAME}:8000"
-    echo 
-
-    status=$(docker inspect substreams-starter_devcontainer-graph-node-1|jq .[].State)
-    if [[ "$(echo -e $status |jq -r .Status)" == "running" ]]; then
-        echo "The graph-node container is running. Please check the logs for more information by running 'dev-logs-graphnode'."
-        echo
-        exit
+    state=$(docker inspect $GRAPHNODE_CONTAINER|jq .[].State)
+    if [[ "$(echo -e $state |jq -r .Status)" == "running" ]]; then
+        if [[ "$(echo -e $state |jq -r .Health.Status)" == "healthy" ]]; then
+            echo
+            echo "The graph-node container is running and healthy, but not available at $LOCAL_GRAPH_NODE_HOSTNAME:8000"
+            echo "You may have an issue with your container network configuration (e.g. docker-compose). Try restarting all the containers."
+            exit
+        elif [[ "$(echo -e $state |jq -r .Health.Status)" == "starting" ]]; then
+            echo
+            echo "The graph-node container is just starting, please wait a moment to get more information."
+            echo
+            exit
+        else
+            echo
+            echo "The graph-node container is not ready, showing as $(echo -e $status |jq -r .Health.Status)."
+            echo "You can check the logs for more information by running 'dev-logs-graphnode'."
+            exit
+        fi
     else
-        echo "Current status of the container:"
-        echo -e $status | jq .
+        echo "The graph-node container $GRAPHNODE_CONTAINER is not running"
+        echo "Current status:"  
+        echo $state | jq .Status
         echo
         echo "You can try to start the container by running 'dev-restart-services'."
-        echo "You can check the logs for more information by running 'dev-logs-graphnode'."
+        echo "Get more details by running 'docker inspect $GRAPHNODE_CONTAINER'."
         echo
         exit
     fi

@@ -12,6 +12,6 @@ echo -e "  ${GREEN}dev-update${ENDCOLOR}              Update the substreams bina
 echo -e "  ${GREEN}dev-restart-services${ENDCOLOR}    Restart service containres (graph-node, ipfs, postgres, pgweb)"
 echo -e "  ${GREEN}dev-reset-subgraphs${ENDCOLOR}     Delete all the subgraph stored data and restart containers"
 echo -e "  ${GREEN}dev-logs-graphnode${ENDCOLOR}      Show the latest logs from the graph-node container"
-echo -e "  ${GREEN}dev-logs-postgres${ENDCOLOR}      Show the latest logs from the postgres container"
+echo -e "  ${GREEN}dev-logs-postgres${ENDCOLOR}       Show the latest logs from the postgres container"
 echo -e ""
 

@@ -25,8 +25,8 @@ ENV GOPATH="/go"
 
 RUN cargo install toml-cli
 
-ADD https://storage.googleapis.com/substreams-registry/bin/substreams-281b91d /usr/bin/substreams
-RUN chmod +x /usr/bin/substreams
+ADD https://storage.googleapis.com/substreams-registry/bin/substreams /usr/bin/substreams
+RUN chmod +rx /usr/bin/substreams
 
 # the 'help' command will be added in post-create steps
 COPY <<EOF /etc/motd

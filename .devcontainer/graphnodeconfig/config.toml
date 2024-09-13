@@ -1,0 +1,57 @@
+[general]
+
+[store]
+[store.primary]
+connection = "postgresql://graph-node:let-me-in@postgres:5432/graph-node"
+weight = 1
+pool_size = 10
+
+[chains]
+ingestor = "block_ingestor_node"
+
+# Chain configurations:
+#  - Modify [chains.`CHAINNAME`] to correspond to a well-known chain from https://thegraph.com/docs/en/developing/supported-networks/
+#  - Provide an `ENDPOINT` under "url", that you can grab from https://thegraph.market
+#
+# [chains.CHAINNAME]
+# protocol = "substreams"
+# shard = "primary"
+# provider = [
+#     { label = "substreams", details = { type = "substreams", url = "https://ENDPOINT", token = "$SUBSTREAMS_API_TOKEN", features = [ "compression" ], conn_pool_size = 1 } },
+# ]
+
+# The following chains was configured by the devcontainer based on %%SUBGRAPH_PATH%% 
+[chains.%%NETWORK%%]
+protocol = "substreams"
+shard = "primary"
+provider = [
+    { label = "substreams", details = { type = "substreams", url = "https://%%ENDPOINT%%", token = "$SUBSTREAMS_API_TOKEN", features = [ "compression" ], conn_pool_size = 1 } },
+]
+
+# examples
+#
+# [chains.mainnet]
+# protocol = "substreams"
+# shard = "primary"
+# provider = [
+#     { label = "substreams", details = { type = "substreams", url = "https://mainnet.eth.streamingfast.io:443", token = "$SUBSTREAMS_API_TOKEN", features = [ "compression" ], conn_pool_size = 1 } },
+# ]
+#
+# [chains.injective-mainnet]
+# protocol = "substreams"
+# shard = "primary"
+# provider = [
+#     { label = "substreams", details = { type = "substreams", url = "https://mainnet.injective.streamingfast.io:443", token = "$SUBSTREAMS_API_TOKEN", features = [ "compression" ], conn_pool_size = 1 } },
+# ]
+#
+# [chains.solana-mainnet-beta]
+# protocol = "substreams"
+# shard = "primary"
+# provider = [
+#     { label = "substreams", details = { type = "substreams", url = "https://mainnet.sol.streamingfast.io:443", token = "$SUBSTREAMS_API_TOKEN", features = [ "compression" ], conn_pool_size = 1 } },
+# ]
+
+[deployment]
+[[deployment.rule]]
+shard = "primary"
+indexers = ["default"]

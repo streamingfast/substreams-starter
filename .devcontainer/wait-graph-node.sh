@@ -19,5 +19,31 @@ until test -e /workspace/.substreams.env && grep -q 'SUBSTREAMS_API_TOKEN=' /wor
 done
 echo "if [[ -f /workspace/.substreams.env ]]; then source /workspace/.substreams.env; fi" | tee -a ~/.profile >> ~/.bashrc
 
+if [[ ! -f /workspace/.graph-node/config.toml ]]; then
+    echo "Waiting for a 'subgraph.yaml' (or '/workspace/.graph-node/config.toml') file to be present in the workspace"
+    until SUBGRAPH_PATH="$(find . -type f -name subgraph.yaml|head -n 1)" &&  grep '^ *network:' $SUBGRAPH_PATH || [[ -f /workspace/.graph-node/config.toml ]] ; do
+        sleep 1
+    done
+
+    if [[ ! -f /workspace/.graph-node/config.toml ]]; then
+        NETWORK=$(awk  '/^ *network:/ {print $2}' $SUBGRAPH_PATH)
+        mkdir -p /workspace/.graph-node
+        cp /workspace/.devcontainer/graphnodeconfig/config.toml /tmp/config.toml
+    
+        ENDPOINT="UNKNOWN-ENDPOINT-FOR-NETWORK-$NETWORK"
+        if [[ -x /workspace/.devcontainer/bin/substreams ]]; then
+            # require the substreams binary to be copied there (until an API service is available for this)
+            ENDPOINT=$(/workspace/.devcontainer/bin/substreams tools default-endpoint $NETWORK)
+        fi
+        sed -i 's@%%SUBGRAPH_PATH%%@'"$SUBGRAPH_PATH"'@g' /tmp/config.toml
+        sed -i 's/%%ENDPOINT%%/'"$ENDPOINT"'/g' /tmp/config.toml
+        sed -i 's/%%NETWORK%%/'"$NETWORK"'/g' /tmp/config.toml
+        cat /tmp/config.toml > /workspace/.graph-node/config.toml
+        chown 1000:1000 /workspace/.graph-node/config.toml
+    fi
+fi
+
 echo "Config ready, launching graph-node..."
-reflex -g /workspace/.graph-node/config.toml -g /workspace/.substreams.env -s /workspace/.devcontainer/start-graph-node.sh
+
+cd /workspace/.graph-node
+reflex -g config.toml -s /workspace/.devcontainer/start-graph-node.sh
