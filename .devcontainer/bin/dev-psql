@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ ! -x /usr/bin/psql ]]; then
+    sudo apt update
+    sudo apt install -y postgresql-client
+fi
+
+export PGPASSWORD=$LOCAL_GRAPH_NODE_PASSWORD
+psql -h $LOCAL_GRAPH_NODE_HOSTNAME -U graph-node

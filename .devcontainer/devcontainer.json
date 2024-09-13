@@ -7,6 +7,7 @@
         "SUBSTREAMS_INIT_CODEGEN_ENDPOINT": "https://codegen-staging.substreams.dev",
         "DOCKER_CLI_HINTS": "false",
         "LOCAL_GRAPH_NODE_HOSTNAME": "graph-node",
+        "PGPASSWORD": "let-me-in",
         "LOCAL_IPFS_HOSTNAME": "ipfs",
         "GRAPH_STORE_WRITE_BATCH_SIZE": "0",
         "WORKSPACE_FOLDER": "${containerWorkspaceFolder}"
