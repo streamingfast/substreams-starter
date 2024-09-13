@@ -19,8 +19,8 @@ services:
   ipfs:
     image: ipfs/kubo:v0.14.0
     volumes:
-      -  ../devdata/ipfs:/data/ipfs
-      - ../devdata/ipfs-export:/export
+      -  ../.devcontainer/devdata/ipfs:/data/ipfs
+      - ../.devcontainer/devdata/ipfs-export:/export
     ports:
       - "5001:5001"
       - "8080:8080"
@@ -73,7 +73,7 @@ services:
       POSTGRES_INITDB_ARGS: "-E UTF8 --locale=C"
       POSTGRES_HOST_AUTH_METHOD: md5
     volumes:
-      - ../devdata/postgres:/var/lib/postgresql/data
+      - ../.devcontainer/devdata/postgres:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready"]
       interval: 30s

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEVDATA=/workspace/devdata
+DEVDATA=/workspace/.devcontainer/devdata
 
 if [[ $1 != "--force" && $1 != "-f" ]]; then
     echo "This will remove all subgraphs in the development environment by DELETING the database and everything in $DEVDATA."
