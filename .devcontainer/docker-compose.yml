@@ -1,6 +1,6 @@
 services:
   main:
-    image: ghcr.io/streamingfast/substreams-starter:v0.1.1
+    image: ghcr.io/streamingfast/substreams-starter:v0.1.2
     ports:
       - "9000:9000"
     platform: linux/amd64
