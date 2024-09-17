@@ -1,13 +1,11 @@
 services:
   main:
-    image: ghcr.io/streamingfast/substreams-starter:v0.1.2
+    image: ghcr.io/streamingfast/substreams-starter:v0.1.4
     platform: linux/amd64
     volumes:
       - ..:/workspace:cached
       - /var/run/docker.sock:/var/run/docker-host.sock
     entrypoint: '/bin/sh -c "sleep infinity"'
-    depends_on:
-      - postgres
     healthcheck:
       test: ["CMD", "true"]
       interval: 10s
@@ -19,20 +17,12 @@ services:
     volumes:
       -  ../.devcontainer/devdata/ipfs:/data/ipfs
       - ../.devcontainer/devdata/ipfs-export:/export
-    ports:
-      - "5001:5001"
-      - "8080:8080"
+    network_mode: service:main
     depends_on:
       - postgres
 
   graph-node:
     image: graphprotocol/graph-node:9a51f3b
-    ports:
-      - '8000:8000'
-      - '8001:8001'
-      - '8020:8020'
-      - '8030:8030'
-      - '8040:8040'
     volumes:
       - ../.graph-node:/config/graph-node:cached
       - ..:/workspace:cached  # .devcontainer, .env
@@ -41,7 +31,7 @@ services:
       postgres_user: graph-node
       postgres_pass: let-me-in
       postgres_db: graph-node
-      ipfs: 'ipfs:5001'
+      ipfs: 'localhost:5001'
       GRAPH_LOG: info
       GRAPH_NODE_CONFIG: /workspace/.graph-node/config.toml
       GRAPH_STORE_WRITE_BATCH_SIZE: 0
@@ -50,6 +40,7 @@ services:
     depends_on:
       - ipfs
       - postgres
+    network_mode: service:main
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "8000"]
       interval: 10s
@@ -58,12 +49,11 @@ services:
 
   postgres:
     image: postgres:15
-    ports:
-      - "5432:5432"
     command:
     -  "postgres"
     -  "-cshared_preload_libraries=pg_stat_statements"
     #-  "-clog_statement=all"
+    network_mode: service:main
     environment:
       POSTGRES_USER: graph-node
       POSTGRES_PASSWORD: let-me-in
@@ -81,11 +71,10 @@ services:
   pgweb:
     image: sosedoff/pgweb:0.11.12
     restart: on-failure
-    ports:
-      - "8081:8081"
     command: ["pgweb", "--bind=0.0.0.0", "--listen=8081", "--binary-codec=hex"]
+    network_mode: service:main
     environment:
-      - DATABASE_URL=postgres://graph-node:let-me-in@postgres:5432/graph-node?sslmode=disable
+      - DATABASE_URL=postgres://graph-node:let-me-in@localhost:5432/graph-node?sslmode=disable
     depends_on:
       - postgres
     healthcheck:

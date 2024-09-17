@@ -15,4 +15,5 @@ echo 'PATH="./node_modules/.bin:$PATH:/workspace/.devcontainer/bin"' >> ~/.bashr
 . ~/.bashrc
 
 git config --global --add safe.directory /workspace
+/workspace/.devcontainer/bin/dev-restart-postgres # fix an issue (race?) on github codespaces where vscode changes the ownership of those files..
 /workspace/.devcontainer/bin/dev-update

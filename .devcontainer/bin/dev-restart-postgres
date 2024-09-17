@@ -1,0 +1,22 @@
+#!/bin/bash
+
+PROJECT=$(docker inspect --format='{{index .Config.Labels "com.docker.compose.project"}}' $HOSTNAME)
+DOCKERPS=$(docker ps -a --format=json)
+CONTAINERS=$(echo -e $DOCKERPS | jq -r 'select(.Names | startswith("'$PROJECT'"))|.Names')
+
+for container in $CONTAINERS; do
+  case $container in 
+    *-postgres-1)
+        POSTGRES_CONTAINER=$container
+        ;;
+  esac
+done
+if [[ "$POSTGRES_CONTAINER" == "" ]]; then
+    echo "Error: Missing container: POSTGRES=$POSTGRES_CONTAINER"
+    exit 1
+fi
+
+echo "Stopping container..."
+docker stop $POSTGRES_CONTAINER
+echo "Starting..."
+docker start $POSTGRES_CONTAINER

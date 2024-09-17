@@ -6,31 +6,42 @@
     "containerEnv": {
         "SUBSTREAMS_INIT_CODEGEN_ENDPOINT": "https://codegen-staging.substreams.dev",
         "DOCKER_CLI_HINTS": "false",
-        "LOCAL_GRAPH_NODE_HOSTNAME": "graph-node",
+        "LOCAL_GRAPH_NODE_HOSTNAME": "localhost",
         "LOCAL_GRAPH_NODE_PASSWORD": "let-me-in",
-        "LOCAL_IPFS_HOSTNAME": "ipfs",
-        "GRAPH_STORE_WRITE_BATCH_SIZE": "0",
+        "LOCAL_IPFS_HOSTNAME": "localhost",
         "WORKSPACE_FOLDER": "${containerWorkspaceFolder}"
     },
+    "initializeCommand": "mkdir -p ${localWorkspaceFolder}/.devcontainer/devdata/postgres ${localWorkspaceFolder}/.devcontainer/devdata/ipfs ${localWorkspaceFolder}/.devcontainer/devdata/ipfs-export ${localWorkspaceFolder}/.graph-node",
     "forwardPorts": [
-        "postgres:5432",
-        "ipfs:5001",
-        "pgweb:8081",
-        "graph-node:8080", 
-        "graph-node:8000",
-        "graph-node:8001",
-        "graph-node:8020",
-        "graph-node:8030",
-        "graph-node:8040"
+        5432,
+        5001,
+        8000,
+        8020,
+        8081
     ],
     "portsAttributes": {
         "1065": {
-            "label": "pprof",
+            "label": "substreams_loglevel_server",
             "onAutoForward": "silent"
         },
-        "ipfs:5001": {
-            "label": "ipfs (/webui)",
+        "6060": {
+            "label": "substreams_pprof",
             "onAutoForward": "silent"
+        },
+        "5432": {
+            "label": "postgresql",
+        },
+        "5001": {
+            "label": "ipfs",
+        },
+        "8000": {
+            "label": "graphql",
+        },
+        "8020": {
+            "label": "graph-node",
+        },
+        "8081": {
+            "label": "pgweb",
         }
     },
     "customizations": {
