@@ -1,0 +1,10 @@
+{
+  "generator": "sol-transactions",
+  "state": {
+    "name": "my_project_sol",
+    "chainName": "",
+    "initialBlock": 200000000,
+    "initialBlockSet": true,
+    "programId": "program:TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+  }
+}

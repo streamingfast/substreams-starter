@@ -21,7 +21,7 @@ substreams auth
 substreams gui
 ```
 
-and generate sink projects with:
+Run help to discover the development environment and then generate sink projects with:
 
 ```bash
 substreams codegen subgraph
@@ -31,6 +31,10 @@ substreams codegen sql
 Learn more:
 - [Tutorials](https://substreams.streamingfast.io/tutorials/)
 - [Substreams Documentation](https://substreams.streamingfast.io)
+
+Discover community Substreams: 
+
+- [Substreams Registry](https://substreams.dev/)
 
 ## Clone in local VSCode
 
