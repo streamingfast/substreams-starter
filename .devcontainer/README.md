@@ -21,7 +21,7 @@ substreams auth
 substreams gui
 ```
 
-Run help to discover the development environment and then generate sink projects with:
+Run `help` to discover the development environment and then generate sink projects with:
 
 ```bash
 substreams codegen subgraph
