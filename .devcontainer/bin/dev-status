@@ -64,7 +64,7 @@ fi
 
 echo
 redline "#################### Graph-node ####################"
-if ! find $WORKSPACE_FOLDER -type f -name subgraph.yaml|grep -q .; then
+if ! find $WORKSPACE_FOLDER -type f -name subgraph.yaml 2>/dev/null |grep -q .; then
     echo
     echo "No subgraph.yaml file found, run 'substreams codegen subgraph' if you want to generate a subgraph from your substreams."
     echo
