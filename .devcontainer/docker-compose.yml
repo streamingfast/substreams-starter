@@ -35,6 +35,7 @@ services:
       GRAPH_LOG: info
       GRAPH_NODE_CONFIG: /workspace/.graph-node/config.toml
       GRAPH_STORE_WRITE_BATCH_SIZE: 0
+      GRAPH_ALLOW_NON_DETERMINISTIC_FULLTEXT_SEARCH: "true"
     command:
       - /workspace/.devcontainer/wait-graph-node.sh
     depends_on:
