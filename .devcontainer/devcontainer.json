@@ -11,6 +11,7 @@
         "LOCAL_IPFS_HOSTNAME": "localhost",
         "WORKSPACE_FOLDER": "${containerWorkspaceFolder}"
     },
+    "initializeCommand": "mkdir -p ${localWorkspaceFolder}/.graph-node",
     "forwardPorts": [
         5432,
         5001,
