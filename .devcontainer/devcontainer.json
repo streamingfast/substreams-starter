@@ -11,7 +11,6 @@
         "LOCAL_IPFS_HOSTNAME": "localhost",
         "WORKSPACE_FOLDER": "${containerWorkspaceFolder}"
     },
-    "initializeCommand": "mkdir -p ${localWorkspaceFolder}/.devcontainer/devdata/postgres ${localWorkspaceFolder}/.devcontainer/devdata/ipfs ${localWorkspaceFolder}/.devcontainer/devdata/ipfs-export ${localWorkspaceFolder}/.graph-node",
     "forwardPorts": [
         5432,
         5001,
