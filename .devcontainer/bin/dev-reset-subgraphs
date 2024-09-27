@@ -1,9 +1,7 @@
 #!/bin/bash
 
-DEVDATA=/workspace/.devcontainer/devdata
-
 if [[ $1 != "--force" && $1 != "-f" ]]; then
-    echo "This will remove all subgraphs in the development environment by DELETING the database and everything in $DEVDATA."
+    echo "This will remove all subgraphs in the development environment by DELETING the database and ipfs content."
     read -p "Are you sure? (Y/N) " -r
     echo ""
     if [[ ! $REPLY =~ ^[Yy]$ ]]
@@ -39,12 +37,12 @@ fi
 echo "Stopping containers..."
 docker stop $GRAPHNODE_CONTAINER $IPFS_CONTAINER $POSTGRES_CONTAINER
 
-echo "Removing data in $DEVDATA"
-rm -rf $DEVDATA && mkdir $DEVDATA
+echo "Deleting data in /data"
+shopt -s dotglob
+for i in db ipfs ipfs-export; do
+    sudo find /data/$i -mindepth 1 -delete
+done
 
 echo "Starting..."
 docker start $IPFS_CONTAINER $POSTGRES_CONTAINER
 docker start $GRAPHNODE_CONTAINER 
-
-# graphman chain list 
-# graphman info --all

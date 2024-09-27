@@ -5,6 +5,9 @@ services:
     volumes:
       - ..:/workspace:cached
       - /var/run/docker.sock:/var/run/docker-host.sock
+      - ipfs-data:/data/ipfs
+      - ipfs-export-data:/data/ipfs-export
+      - db-data:/data/db
     entrypoint: '/bin/sh -c "sleep infinity"'
     healthcheck:
       test: ["CMD", "true"]
@@ -15,8 +18,8 @@ services:
   ipfs:
     image: ipfs/kubo:v0.14.0
     volumes:
-      -  ../.devcontainer/devdata/ipfs:/data/ipfs
-      - ../.devcontainer/devdata/ipfs-export:/export
+      - ipfs-data:/data/ipfs
+      - ipfs-export-data:/export
     network_mode: service:main
     depends_on:
       - postgres
@@ -62,7 +65,7 @@ services:
       POSTGRES_INITDB_ARGS: "-E UTF8 --locale=C"
       POSTGRES_HOST_AUTH_METHOD: md5
     volumes:
-      - ../.devcontainer/devdata/postgres:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready"]
       interval: 30s
@@ -83,3 +86,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+volumes:
+  db-data:
+  ipfs-data:
+  ipfs-export-data:
