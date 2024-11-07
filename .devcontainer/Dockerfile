@@ -25,8 +25,7 @@ ENV GOPATH="/go"
 
 RUN cargo install toml-cli
 
-ADD https://storage.googleapis.com/substreams-registry/bin/substreams /usr/bin/substreams
-RUN chmod +rx /usr/bin/substreams
+RUN VER=$(curl --silent -qI https://github.com/streamingfast/substreams/releases/latest | awk -F '/' '/^location/ {print  substr($NF, 1, length($NF)-1)}') && curl -LO https://github.com/streamingfast/substreams/releases/download/$VER/substreams_linux_x86_64.tar.gz && tar xzf substreams_linux_x86_64.tar.gz substreams && mv substreams /usr/bin/substreams
 
 RUN npm install -g @graphprotocol/graph-cli
 

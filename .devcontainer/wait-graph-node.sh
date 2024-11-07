@@ -30,10 +30,18 @@ if [[ ! -f /workspace/.graph-node/config.toml ]]; then
         mkdir -p /workspace/.graph-node
         cp /workspace/.devcontainer/graphnodeconfig/config.toml /tmp/config.toml
     
-        ENDPOINT="UNKNOWN-ENDPOINT-FOR-NETWORK-$NETWORK"
-        if [[ -x /workspace/.devcontainer/bin/substreams ]]; then
-            # require the substreams binary to be copied there (until an API service is available for this)
-            ENDPOINT=$(/workspace/.devcontainer/bin/substreams tools default-endpoint $NETWORK)
+        ENDPOINT=$(/workspace/.devcontainer/bin/substreams tools default-endpoint $NETWORK)
+        if [[ -z "$ENDPOINT" ]]; then
+            PROVIDERS=$(curl -L https://graphregistry.pages.dev/TheGraphNetworksRegistry.json | jq '.networks.[]|select((.id == "'$NETWORK'") or (.aliases |index("'$NETWORK'")))|.support.substreams')
+            if [[ -z "$PROVIDERS" ]]; then
+                echo "No substreams support for network $NETWORK"
+                ENDPOINT=SET_ENDPOINT_FOR_NETWORK_${NETWORK}
+            else
+                ENDPOINT=$(echo $PROVIDERS | jq -r '(.[]|select(.provider == "streamingfast")).url')
+                if [[ -z "$ENDPOINT" ]]; then
+                    ENDPOINT=$(echo $PROVIDERS | jq -r '(.[0]).url')
+                fi
+            fi
         fi
         sed -i 's@%%SUBGRAPH_PATH%%@'"$SUBGRAPH_PATH"'@g' /tmp/config.toml
         sed -i 's/%%ENDPOINT%%/'"$ENDPOINT"'/g' /tmp/config.toml

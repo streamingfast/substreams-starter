@@ -6,9 +6,15 @@ redline() {
     echo -e "$COLOR_RED$1$COLOR_DEFAULT"
 }
 redline "## Updating devcontainer tools ##"
-echo -- Updating substreams --
-sudo curl -o /usr/bin/substreams -z /usr/bin/substreams -L https://storage.googleapis.com/substreams-registry/bin/substreams -s
-sudo chmod +rx /usr/bin/substreams
+PREV=v$(substreams --version |awk '{print $3}')
+VER=$(curl --silent -qI https://github.com/streamingfast/substreams/releases/latest | awk -F '/' '/^location/ {print  substr($NF, 1, length($NF)-1)}') 
+if [[ "$VER" != "$PREV" ]]; then
+    echo -- Updating substreams from $PREV to $VER --
+    pushd /tmp
+    curl -LO https://github.com/streamingfast/substreams/releases/download/$VER/substreams_linux_x86_64.tar.gz && tar xzf substreams_linux_x86_64.tar.gz substreams && sudo mv substreams /usr/bin/substreams
+    popd
+fi
+
 cp /usr/bin/substreams /workspace/.devcontainer/bin/substreams # used by graph-node container to find network
 
 echo -- Updating global graph-cli --
