@@ -19,6 +19,8 @@ substreams init
 substreams build
 substreams auth
 substreams gui
+substreams registry login
+substreams registry publish
 ```
 
 Run `help` to discover the development environment and then generate sink projects with:
