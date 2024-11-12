@@ -19,6 +19,8 @@ substreams init
 substreams build
 substreams auth
 substreams gui
+substreams registry login
+substreams registry publish
 ```
 
 Run `help` to discover the development environment and then generate sink projects with:
@@ -29,10 +31,11 @@ substreams codegen sql
 ```
 
 Learn more:
+
 - [Tutorials](https://substreams.streamingfast.io/tutorials/)
 - [Substreams Documentation](https://substreams.streamingfast.io)
 
-Discover community Substreams: 
+Discover community Substreams:
 
 - [Substreams Registry](https://substreams.dev/)
 
@@ -48,19 +51,15 @@ VSCode has excellent support for such containers. See [their documentation](http
 > [!NOTE]
 > Devcontainers, the environment proposed here, have **greatly matured** in the past 3 years. They have been [standardized](https://containers.dev/), implemented in [multiple IDEs and tools](https://containers.dev/supporting), and are used at scale in great companies (eg. [Shopify](https://shopify.engineering/shopifys-cloud-development-journey)).
 
-
 ## Local install
 
 The **Devcontainer is the preferred way** to develop Substreams. Our documentation generally assumes this environment.
 
 If you prefer, you can install all components locally by following our [installation docs](https://substreams.streamingfast.io/documentation/consume/installing-the-cli).
 
-
 ## Included in the dev environment
 
 - `substreams` preinstalled
-- For _Substreams_ development: **Rust** toolchain, `buf` and protobuf tooling, 
+- For _Substreams_ development: **Rust** toolchain, `buf` and protobuf tooling,
 - For _subgraph_ development: **node/npm**, along with all subgraph services, running in the devcontainer (`graph-node`, `postgres`, `ipfs`) directly accessible locally or remotely.
 - Pre-configured VSCode extensions for everything, plus a custom _VSCode Substreams Extension_.
-
-
