@@ -67,7 +67,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready"]
+      test: ["CMD", "pg_isready", "-U", "graph-node"]
       interval: 30s
       timeout: 10s
       retries: 15
