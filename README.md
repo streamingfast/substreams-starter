@@ -55,7 +55,7 @@ VSCode has excellent support for such containers. See [their documentation](http
 
 The **Devcontainer is the preferred way** to develop Substreams. Our documentation generally assumes this environment.
 
-If you prefer, you can install all components locally by following our [installation docs](https://substreams.streamingfast.io/documentation/consume/installing-the-cli).
+If you prefer, you can install all components locally by following our [installation docs](https://docs.substreams.dev/reference-material/substreams-cli/installing-the-cli).
 
 
 ## Included in the dev environment
